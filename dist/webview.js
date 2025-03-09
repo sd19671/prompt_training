@@ -30249,16 +30249,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _PromptManager__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PromptManager */ "./src/webview/PromptManager.js");
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
 function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
-function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
@@ -30271,85 +30265,62 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 // Acquire the VS Code API
 var vscode = acquireVsCodeApi();
 function App() {
-  // Set up initial state with persisted state if available
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
-      var previousState = vscode.getState();
-      return previousState || {
-        prompts: [] // We'll load these from storage
-      };
-    }),
+  // State for prompts
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState2 = _slicedToArray(_useState, 2),
-    state = _useState2[0],
-    setState = _useState2[1];
+    prompts = _useState2[0],
+    setPrompts = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    initialized = _useState4[0],
+    setInitialized = _useState4[1];
 
   // Effect to load prompts when the component mounts
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // Send message to the extension to request prompts data
-    vscode.postMessage({
-      command: 'getPrompts'
-    });
+    if (!initialized) {
+      console.log('Requesting prompts from extension');
+      // Request prompts data from the extension
+      vscode.postMessage({
+        command: 'getPrompts'
+      });
+      setInitialized(true);
+    }
 
     // Set up message listener
     var messageListener = function messageListener(event) {
       var message = event.data;
-      console.log('Message prompts:', message);
+      console.log('Received message:', message.command);
       switch (message.command) {
         case 'setPrompts':
-          setState(function (prevState) {
-            return _objectSpread(_objectSpread({}, prevState), {}, {
-              prompts: message.prompts
-            });
-          });
-          // Persist state
-          vscode.setState({
-            prompts: message.prompts
-          });
+          console.log('Prompts received:', message.prompts.length);
+          setPrompts(message.prompts);
           break;
         case 'promptAdded':
-          setState(function (prevState) {
-            var updatedPrompts = [].concat(_toConsumableArray(prevState.prompts), [message.prompt]);
-            vscode.setState({
-              prompts: updatedPrompts
-            });
-            return _objectSpread(_objectSpread({}, prevState), {}, {
-              prompts: updatedPrompts
-            });
+          setPrompts(function (prevPrompts) {
+            return [].concat(_toConsumableArray(prevPrompts), [message.prompt]);
           });
           break;
         case 'promptUpdated':
-          setState(function (prevState) {
-            var updatedPrompts = prevState.prompts.map(function (p) {
+          setPrompts(function (prevPrompts) {
+            return prevPrompts.map(function (p) {
               return p.id === message.prompt.id ? message.prompt : p;
-            });
-            vscode.setState({
-              prompts: updatedPrompts
-            });
-            return _objectSpread(_objectSpread({}, prevState), {}, {
-              prompts: updatedPrompts
             });
           });
           break;
         case 'promptDeleted':
-          setState(function (prevState) {
-            var updatedPrompts = prevState.prompts.filter(function (p) {
+          setPrompts(function (prevPrompts) {
+            return prevPrompts.filter(function (p) {
               return p.id !== message.id;
-            });
-            vscode.setState({
-              prompts: updatedPrompts
-            });
-            return _objectSpread(_objectSpread({}, prevState), {}, {
-              prompts: updatedPrompts
             });
           });
           break;
-        // Handle other message types
       }
     };
     window.addEventListener('message', messageListener);
     return function () {
       return window.removeEventListener('message', messageListener);
     };
-  }, []);
+  }, [initialized]);
 
   // Function to handle copying to clipboard through VS Code API
   var handleCopyToClipboard = function handleCopyToClipboard(text) {
@@ -30359,7 +30330,7 @@ function App() {
     });
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement(_PromptManager__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    prompts: state.prompts,
+    prompts: prompts,
     onCopyToClipboard: handleCopyToClipboard
   });
 }
@@ -30392,31 +30363,35 @@ function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" !=
 function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 var PromptManager = function PromptManager(_ref) {
-  var initialPrompts = _ref.prompts,
+  var prompts = _ref.prompts,
     onCopyToClipboard = _ref.onCopyToClipboard;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(initialPrompts || []),
-    _useState2 = _slicedToArray(_useState, 1),
-    prompts = _useState2[0];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState2 = _slicedToArray(_useState, 2),
+    selectedPrompt = _useState2[0],
+    setSelectedPrompt = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
     _useState4 = _slicedToArray(_useState3, 2),
-    selectedPrompt = _useState4[0],
-    setSelectedPrompt = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({}),
+    variableValues = _useState4[0],
+    setVariableValues = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState6 = _slicedToArray(_useState5, 2),
-    variableValues = _useState6[0],
-    setVariableValues = _useState6[1];
+    searchTerm = _useState6[0],
+    setSearchTerm = _useState6[1];
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState8 = _slicedToArray(_useState7, 2),
-    searchTerm = _useState8[0],
-    setSearchTerm = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    compiledPrompt = _useState8[0],
+    setCompiledPrompt = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState10 = _slicedToArray(_useState9, 2),
-    compiledPrompt = _useState10[0],
-    setCompiledPrompt = _useState10[1];
-  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState12 = _slicedToArray(_useState11, 2),
-    copied = _useState12[0],
-    setCopied = _useState12[1];
+    copied = _useState10[0],
+    setCopied = _useState10[1];
+
+  // Reset selection when prompts change
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (prompts.length > 0 && !selectedPrompt) {
+      handleSelectPrompt(prompts[0]);
+    }
+  }, [prompts]);
 
   // Handle selecting a prompt
   var handleSelectPrompt = function handleSelectPrompt(prompt) {
@@ -30609,7 +30584,7 @@ var PromptManager = function PromptManager(_ref) {
       return setSearchTerm(e.target.value);
     },
     style: vscodeStyles.input
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, filteredPrompts.map(function (prompt) {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, filteredPrompts.length > 0 ? filteredPrompts.map(function (prompt) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
       key: prompt.id,
       onClick: function onClick() {
@@ -30630,7 +30605,7 @@ var PromptManager = function PromptManager(_ref) {
         display: 'flex',
         flexWrap: 'wrap'
       }
-    }, prompt.tags.map(function (tag) {
+    }, prompt.tags && prompt.tags.map(function (tag) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         key: tag,
         style: vscodeStyles.tag
@@ -30641,19 +30616,19 @@ var PromptManager = function PromptManager(_ref) {
         flexWrap: 'wrap',
         marginTop: '4px'
       }
-    }, prompt.patterns.map(function (pattern) {
+    }, prompt.patterns && prompt.patterns.map(function (pattern) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
         key: pattern,
         style: _objectSpread(_objectSpread({}, vscodeStyles.tag), vscodeStyles.patternTag)
       }, pattern);
     })));
-  }), filteredPrompts.length === 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
+  }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("p", {
     style: {
       textAlign: 'center',
       padding: '10px',
       color: 'var(--vscode-descriptionForeground)'
     }
-  }, "No prompts found")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
+  }, prompts.length === 0 ? 'Loading prompts...' : 'No prompts found')))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     style: vscodeStyles.content
   }, selectedPrompt ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("div", {
     style: vscodeStyles.card
@@ -30677,7 +30652,7 @@ var PromptManager = function PromptManager(_ref) {
       fontSize: 'small',
       fontWeight: 'bold'
     }
-  }, "Patterns: "), selectedPrompt.patterns.map(function (pattern) {
+  }, "Patterns: "), selectedPrompt.patterns && selectedPrompt.patterns.map(function (pattern) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("span", {
       key: pattern,
       style: _objectSpread(_objectSpread(_objectSpread({}, vscodeStyles.tag), vscodeStyles.patternTag), {}, {
@@ -30717,7 +30692,7 @@ var PromptManager = function PromptManager(_ref) {
       flexDirection: 'column',
       gap: '10px'
     }
-  }, Object.entries(selectedPrompt.variables).map(function (_ref6) {
+  }, selectedPrompt.variables && Object.entries(selectedPrompt.variables).map(function (_ref6) {
     var _ref7 = _slicedToArray(_ref6, 2),
       key = _ref7[0],
       variable = _ref7[1];
@@ -30739,14 +30714,14 @@ var PromptManager = function PromptManager(_ref) {
       }
     }, "(", variable.description, ")")), variable.type === 'number' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("input", {
       type: "number",
-      value: variableValues[key],
+      value: variableValues[key] || '',
       onChange: function onChange(e) {
         return handleVariableChange(key, e.target.value);
       },
       style: vscodeStyles.input,
       required: variable.required
     }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createElement("textarea", {
-      value: variableValues[key],
+      value: variableValues[key] || '',
       onChange: function onChange(e) {
         return handleVariableChange(key, e.target.value);
       },

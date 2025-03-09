@@ -5,64 +5,50 @@ import PromptManager from './PromptManager';
 const vscode = acquireVsCodeApi();
 
 function App() {
-  // Set up initial state with persisted state if available
-  const [state, setState] = useState(() => {
-    const previousState = vscode.getState();
-    return previousState || {
-      prompts: [], // We'll load these from storage
-    };
-  });
+  // State for prompts
+  const [prompts, setPrompts] = useState([]);
+  const [initialized, setInitialized] = useState(false);
 
   // Effect to load prompts when the component mounts
   useEffect(() => {
-    // Send message to the extension to request prompts data
-    vscode.postMessage({
-      command: 'getPrompts'
-    });
+    if (!initialized) {
+      console.log('Requesting prompts from extension');
+      // Request prompts data from the extension
+      vscode.postMessage({
+        command: 'getPrompts'
+      });
+      setInitialized(true);
+    }
 
     // Set up message listener
     const messageListener = event => {
       const message = event.data;
-      console.log('Message prompts:', message);
+      console.log('Received message:', message.command);
+      
       switch (message.command) {
         case 'setPrompts':
-          setState(prevState => ({
-            ...prevState,
-            prompts: message.prompts
-          }));
-          // Persist state
-          vscode.setState({ prompts: message.prompts });
+          console.log('Prompts received:', message.prompts.length);
+          setPrompts(message.prompts);
           break;
         case 'promptAdded':
-          setState(prevState => {
-            const updatedPrompts = [...prevState.prompts, message.prompt];
-            vscode.setState({ prompts: updatedPrompts });
-            return { ...prevState, prompts: updatedPrompts };
-          });
+          setPrompts(prevPrompts => [...prevPrompts, message.prompt]);
           break;
         case 'promptUpdated':
-          setState(prevState => {
-            const updatedPrompts = prevState.prompts.map(p => 
-              p.id === message.prompt.id ? message.prompt : p
-            );
-            vscode.setState({ prompts: updatedPrompts });
-            return { ...prevState, prompts: updatedPrompts };
-          });
+          setPrompts(prevPrompts => 
+            prevPrompts.map(p => p.id === message.prompt.id ? message.prompt : p)
+          );
           break;
         case 'promptDeleted':
-          setState(prevState => {
-            const updatedPrompts = prevState.prompts.filter(p => p.id !== message.id);
-            vscode.setState({ prompts: updatedPrompts });
-            return { ...prevState, prompts: updatedPrompts };
-          });
+          setPrompts(prevPrompts => 
+            prevPrompts.filter(p => p.id !== message.id)
+          );
           break;
-        // Handle other message types
       }
     };
 
     window.addEventListener('message', messageListener);
     return () => window.removeEventListener('message', messageListener);
-  }, []);
+  }, [initialized]);
 
   // Function to handle copying to clipboard through VS Code API
   const handleCopyToClipboard = (text) => {
@@ -74,7 +60,7 @@ function App() {
 
   return (
     <PromptManager 
-      prompts={state.prompts} 
+      prompts={prompts} 
       onCopyToClipboard={handleCopyToClipboard}
     />
   );

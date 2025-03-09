@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const PromptManager = ({ prompts: initialPrompts, onCopyToClipboard }) => {
-  const [prompts] = useState(initialPrompts || []);
+const PromptManager = ({ prompts, onCopyToClipboard }) => {
   const [selectedPrompt, setSelectedPrompt] = useState(null);
   const [variableValues, setVariableValues] = useState({});
   const [searchTerm, setSearchTerm] = useState('');
   const [compiledPrompt, setCompiledPrompt] = useState('');
   const [copied, setCopied] = useState(false);
+
+  // Reset selection when prompts change
+  useEffect(() => {
+    if (prompts.length > 0 && !selectedPrompt) {
+      handleSelectPrompt(prompts[0]);
+    }
+  }, [prompts]);
 
   // Handle selecting a prompt
   const handleSelectPrompt = (prompt) => {
@@ -191,37 +197,37 @@ const PromptManager = ({ prompts: initialPrompts, onCopyToClipboard }) => {
             />
             
             <div>
-              {filteredPrompts.map(prompt => (
-                <div 
-                  key={prompt.id}
-                  onClick={() => handleSelectPrompt(prompt)}
-                  style={{
-                    ...vscodeStyles.promptItem,
-                    ...(selectedPrompt?.id === prompt.id ? vscodeStyles.selectedPrompt : {})
-                  }}
-                >
-                  <h3 style={{ margin: '0 0 4px' }}>{prompt.name}</h3>
-                  <p style={{ margin: '0 0 6px', fontSize: 'small' }}>{prompt.description}</p>
-                  <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                    {prompt.tags.map(tag => (
-                      <span key={tag} style={vscodeStyles.tag}>
-                        {tag}
-                      </span>
-                    ))}
+              {filteredPrompts.length > 0 ? (
+                filteredPrompts.map(prompt => (
+                  <div 
+                    key={prompt.id}
+                    onClick={() => handleSelectPrompt(prompt)}
+                    style={{
+                      ...vscodeStyles.promptItem,
+                      ...(selectedPrompt?.id === prompt.id ? vscodeStyles.selectedPrompt : {})
+                    }}
+                  >
+                    <h3 style={{ margin: '0 0 4px' }}>{prompt.name}</h3>
+                    <p style={{ margin: '0 0 6px', fontSize: 'small' }}>{prompt.description}</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+                      {prompt.tags && prompt.tags.map(tag => (
+                        <span key={tag} style={vscodeStyles.tag}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '4px' }}>
+                      {prompt.patterns && prompt.patterns.map(pattern => (
+                        <span key={pattern} style={{ ...vscodeStyles.tag, ...vscodeStyles.patternTag }}>
+                          {pattern}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', marginTop: '4px' }}>
-                    {prompt.patterns.map(pattern => (
-                      <span key={pattern} style={{ ...vscodeStyles.tag, ...vscodeStyles.patternTag }}>
-                        {pattern}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-              
-              {filteredPrompts.length === 0 && (
+                ))
+              ) : (
                 <p style={{ textAlign: 'center', padding: '10px', color: 'var(--vscode-descriptionForeground)' }}>
-                  No prompts found
+                  {prompts.length === 0 ? 'Loading prompts...' : 'No prompts found'}
                 </p>
               )}
             </div>
@@ -241,7 +247,7 @@ const PromptManager = ({ prompts: initialPrompts, onCopyToClipboard }) => {
                 <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                   <div>
                     <span style={{ fontSize: 'small', fontWeight: 'bold' }}>Patterns: </span>
-                    {selectedPrompt.patterns.map(pattern => (
+                    {selectedPrompt.patterns && selectedPrompt.patterns.map(pattern => (
                       <span key={pattern} style={{ ...vscodeStyles.tag, ...vscodeStyles.patternTag, marginLeft: '4px' }}>
                         {pattern}
                       </span>
@@ -263,7 +269,7 @@ const PromptManager = ({ prompts: initialPrompts, onCopyToClipboard }) => {
                 <div style={{ marginBottom: '20px' }}>
                   <h3 style={{ margin: '0 0 6px' }}>Fill in the variables:</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                    {Object.entries(selectedPrompt.variables).map(([key, variable]) => (
+                    {selectedPrompt.variables && Object.entries(selectedPrompt.variables).map(([key, variable]) => (
                       <div key={key}>
                         <label style={{ display: 'block', marginBottom: '4px' }}>
                           {key}
@@ -275,14 +281,14 @@ const PromptManager = ({ prompts: initialPrompts, onCopyToClipboard }) => {
                         {variable.type === 'number' ? (
                           <input
                             type="number"
-                            value={variableValues[key]}
+                            value={variableValues[key] || ''}
                             onChange={(e) => handleVariableChange(key, e.target.value)}
                             style={vscodeStyles.input}
                             required={variable.required}
                           />
                         ) : (
                           <textarea
-                            value={variableValues[key]}
+                            value={variableValues[key] || ''}
                             onChange={(e) => handleVariableChange(key, e.target.value)}
                             style={vscodeStyles.textarea}
                             rows={key === 'codeBlock' ? 5 : 2}

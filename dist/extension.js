@@ -39,7 +39,7 @@ function activate(context) {
         enableScripts: true
       };
       webviewView.webview.onDidReceiveMessage(function (message) {
-        console.log('Received message:', message);
+        console.log('Received message:', message.command);
         switch (message.command) {
           case 'getPrompts':
             var prompts = promptStorage.getPrompts();
