@@ -52,7 +52,6 @@
         "approvalRequirements": "Team lead approval"
       },
       "dataPrivacyLevel": "Low"
-    },
-    // ...other default prompts...
+    }
   ]
 }
