@@ -17,7 +17,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
   // Handle selecting a prompt
   const handleSelectPrompt = (prompt) => {
     setSelectedPrompt(prompt);
-    
+
     // Initialize variable values
     const initialValues = {};
     Object.keys(prompt.variables).forEach(key => {
@@ -39,13 +39,13 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
   // Compile the prompt by replacing variables with values
   const compilePrompt = () => {
     let result = selectedPrompt.template;
-    
+
     // Replace each variable placeholder with its value
     Object.keys(variableValues).forEach(key => {
       const regex = new RegExp(`{${key}}`, 'g');
       result = result.replace(regex, variableValues[key]);
     });
-    
+
     setCompiledPrompt(result);
   };
 
@@ -57,7 +57,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
   };
 
   // Filter prompts based on search term
-  const filteredPrompts = prompts.filter(prompt => 
+  const filteredPrompts = prompts.filter(prompt =>
     prompt.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     prompt.description.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -195,11 +195,29 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
               style={vscodeStyles.input}
             />
-            
+
+            <button
+              style={{
+                ...vscodeStyles.button,
+                marginBottom: '10px'
+              }}
+            >
+              Add
+            </button>
+            <div></div>
+            <button
+              style={{
+                ...vscodeStyles.button,
+                marginBottom: '10px'
+              }}
+            >
+              Edit
+            </button>
+
             <div>
               {filteredPrompts.length > 0 ? (
                 filteredPrompts.map(prompt => (
-                  <div 
+                  <div
                     key={prompt.id}
                     onClick={() => handleSelectPrompt(prompt)}
                     style={{
@@ -243,7 +261,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
                 <p style={{ margin: '0 0 10px', color: 'var(--vscode-descriptionForeground)' }}>
                   {selectedPrompt.description}
                 </p>
-                
+
                 <div style={{ display: 'flex', gap: '10px', marginBottom: '10px' }}>
                   <div>
                     <span style={{ fontSize: 'small', fontWeight: 'bold' }}>Patterns: </span>
@@ -258,14 +276,14 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
                     <span style={{ fontSize: 'small' }}>{selectedPrompt.author}</span>
                   </div>
                 </div>
-                
+
                 <div style={{ marginBottom: '10px' }}>
                   <h3 style={{ margin: '0 0 6px' }}>Template:</h3>
                   <div style={vscodeStyles.codeBlock}>
                     {selectedPrompt.template}
                   </div>
                 </div>
-                
+
                 <div style={{ marginBottom: '20px' }}>
                   <h3 style={{ margin: '0 0 6px' }}>Fill in the variables:</h3>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -299,7 +317,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
                     ))}
                   </div>
                 </div>
-                
+
                 <button
                   onClick={compilePrompt}
                   disabled={!areRequiredVariablesFilled()}
@@ -311,7 +329,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
                   Generate Prompt
                 </button>
               </div>
-              
+
               {compiledPrompt && (
                 <div style={vscodeStyles.card}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '10px' }}>
@@ -330,11 +348,11 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
               )}
             </div>
           ) : (
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              height: '100%', 
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '100%',
               color: 'var(--vscode-descriptionForeground)'
             }}>
               <p>Select a prompt from the sidebar to get started</p>

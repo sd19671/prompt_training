@@ -1,0 +1,100 @@
+{
+    "patterns": [
+        {
+            "name": "Meta Language Creation",
+            "category": "Input Semantics",
+            "intent_context": "Enable an LLM to understand a custom language, notation, or shorthand defined by the user.",
+            "motivation": "Some concepts are more clearly expressed using a custom notation, requiring an LLM to be trained on its semantics.",
+            "structure_key_ideas": [
+                "Define a set of rules mapping specific symbols or phrases to meanings.",
+                "Ensure the LLM adheres to these meanings in future interactions.",
+                "Specify any special formatting or constraints."
+            ],
+            "consequences": [
+                "May introduce ambiguity if the shorthand is not well-defined.",
+                "LLM may not always remember the rules in long conversations.",
+                "Useful when existing natural language is insufficient for clarity."
+            ]
+        },
+        {
+            "name": "Output Automater",
+            "category": "Output Customization",
+            "intent_context": "Generate automation scripts based on output recommendations from the LLM.",
+            "motivation": "Manual execution of LLM-suggested steps is tedious and error-prone. Automating these steps improves efficiency.",
+            "structure_key_ideas": [
+                "When LLM suggests multiple steps, generate a script to execute them.",
+                "Specify the script type (e.g., Python, Bash).",
+                "Ensure the script is executable and aligns with user needs."
+            ],
+            "consequences": [
+                "Generated scripts may contain errors and require validation.",
+                "Not useful for simple, single-step outputs.",
+                "Best suited for repetitive or structured automation tasks."
+            ]
+        },
+        {
+            "name": "Persona",
+            "category": "Output Customization",
+            "intent_context": "Make the LLM adopt a specific persona to tailor responses accordingly.",
+            "motivation": "Users may not know exactly how to frame a request but do know who they would ask (e.g., a security expert, historian).",
+            "structure_key_ideas": [
+                "Specify a role, job title, or character.",
+                "Define the expected output style or perspective.",
+                "Ensure responses align with the specified persona."
+            ],
+            "consequences": [
+                "LLM interpretations of personas may be inconsistent.",
+                "Personas can help focus responses but may limit perspective.",
+                "Useful for domain-specific guidance (e.g., coding best practices)."
+            ]
+        },
+        {
+            "name": "Visualization Generator",
+            "category": "Output Customization",
+            "intent_context": "Create text-based descriptions of visualizations for external tools.",
+            "motivation": "LLMs cannot generate images directly but can describe them for visualization tools like Graphviz or DALL-E.",
+            "structure_key_ideas": [
+                "Specify the target tool (e.g., Graphviz, ASCII art generator).",
+                "Define the format and key elements of the visualization.",
+                "Ensure compatibility with the visualization tool."
+            ],
+            "consequences": [
+                "Output may require manual tweaking to render correctly.",
+                "Works best with structured formats (e.g., charts, graphs).",
+                "Limited by the visualization tool's capabilities."
+            ]
+        },
+        {
+            "name": "Fact Check List",
+            "category": "Error Identification",
+            "intent_context": "Generate a list of key facts from LLM output to verify accuracy.",
+            "motivation": "LLMs can generate convincing but incorrect information. A fact-check list helps users validate key claims.",
+            "structure_key_ideas": [
+                "Extract key factual statements from generated text.",
+                "List facts separately at the end of the output.",
+                "Ensure facts are fundamental to the response\u2019s accuracy."
+            ],
+            "consequences": [
+                "May not catch all inaccuracies in LLM output.",
+                "Helps users verify critical information manually.",
+                "Not useful for purely opinion-based or creative outputs."
+            ]
+        },
+        {
+            "name": "Reflection",
+            "category": "Error Identification",
+            "intent_context": "Have the LLM critique its own response for potential errors.",
+            "motivation": "LLMs may produce incorrect or biased output. Self-reflection helps identify weaknesses.",
+            "structure_key_ideas": [
+                "Prompt the LLM to analyze its own response.",
+                "Identify potential errors, inconsistencies, or biases.",
+                "Suggest improvements based on detected flaws."
+            ],
+            "consequences": [
+                "Not always reliable\u2014LLMs may still miss mistakes.",
+                "Useful for refining responses but requires user oversight.",
+                "Works best when combined with external fact-checking."
+            ]
+        }
+    ]
+}
