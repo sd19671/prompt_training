@@ -2,6 +2,8 @@
 
 A POC VS Code extension for managing and learning about prompts and prompt patterns.
 
+![Screenshot](docs/screenshot.png)
+
 ## Features
 
 - Store templates
