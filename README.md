@@ -1,13 +1,14 @@
 # Prompt Manager VS Code Extension
 
-A VS Code extension for managing prompt templates for AI interactions.
+A POC VS Code extension for managing and learning about prompts and prompt patterns.
 
 ## Features
 
-- Browse and search through your prompt templates
+- Store templates
 - Edit and create prompt templates with variables
-- Generate customized prompts by filling in the variables
-- Copy generated prompts to clipboard for use with AI systems
+- Test prompts
+- Resolves template variables
+- Copy generated prompts to clipboard for use with AI
 - Store templates locally for easy access
 
 ## Usage
@@ -59,4 +60,4 @@ This extension contributes the following commands:
 
 ### 0.1.0
 
-Initial release of the Prompt Manager VS Code Extension.
+POC for testing purposes only.

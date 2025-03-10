@@ -181,7 +181,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
     <div style={vscodeStyles.container}>
       {/* Header */}
       <header style={vscodeStyles.header}>
-        <h1 style={{ margin: 0, fontSize: '1.2rem' }}>Prompt Library</h1>
+        <h1 style={{ margin: 0, fontSize: '1.2rem' }}>Prompt Trainer POC</h1>
       </header>
 
       <div style={vscodeStyles.main}>

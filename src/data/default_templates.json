@@ -1,0 +1,58 @@
+{
+  "default_prompts": [
+    {
+      "id": 0,
+      "name": "readme-generator",
+      "description": "Generates professional README files for software projects",
+      "version": "1.0.0",
+      "template": "Create a comprehensive README.md for a {language} project named '{projectName}' that {purpose}. Include the following sections: Project Overview, Installation, Usage, Configuration, API Reference, Contributing Guidelines, and License. The project requires {dependencies} and uses {buildTools} for building. Deployment is handled with {deploymentMethod}.",
+      "variables": {
+        "language": {
+          "type": "string",
+          "description": "Programming language (e.g., JavaScript, Python, Go, Rust)",
+          "required": true
+        },
+        "projectName": {
+          "type": "string",
+          "description": "Name of the project",
+          "required": true
+        },
+        "purpose": {
+          "type": "string",
+          "description": "Brief description of what the project does",
+          "required": true
+        },
+        "dependencies": {
+          "type": "string",
+          "description": "Main dependencies or frameworks",
+          "required": true
+        },
+        "buildTools": {
+          "type": "string",
+          "description": "Build tools used (e.g., Webpack, Vite, Maven)",
+          "required": true
+        },
+        "deploymentMethod": {
+          "type": "string",
+          "description": "How the project is deployed",
+          "required": true
+        }
+      },
+      "patterns": ["Output Automater", "Template"],
+      "tags": ["documentation", "project-setup", "onboarding"],
+      "author": "sldugan",
+      "lastModified": "2025-02-27",
+      "compatibility": "GPT-4, Claude 3.5",
+      "usageLimitations": "May not handle very large projects well",
+      "tokenCount": 1500,
+      "userFeedbackScore": 4.5,
+      "governance": {
+        "canModify": "sldugan",
+        "lastReviewed": "2025-02-27",
+        "approvalRequirements": "Team lead approval"
+      },
+      "dataPrivacyLevel": "Low"
+    },
+    // ...other default prompts...
+  ]
+}
