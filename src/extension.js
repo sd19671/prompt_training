@@ -76,7 +76,7 @@ class PromptManagerPanel {
         switch (message.command) {
           case 'getPrompts':
             const prompts = this.promptStorage.getPrompts();
-            // console.log('Sending prompts:', prompts);
+            console.log('Sending prompts:', prompts);
             this.panel.webview.postMessage({
               command: 'setPrompts',
               prompts

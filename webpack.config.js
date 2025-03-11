@@ -1,4 +1,5 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const extensionConfig = {
   target: 'node',
@@ -15,6 +16,13 @@ const extensionConfig = {
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx']
   },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'src/data', to: 'data' }
+      ]
+    })
+  ],
   module: {
     rules: [
       {
