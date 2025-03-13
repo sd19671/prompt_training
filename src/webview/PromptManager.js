@@ -6,6 +6,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [compiledPrompt, setCompiledPrompt] = useState('');
   const [copied, setCopied] = useState(false);
+  const [selectedTag, setSelectedTag] = useState(null); // New state for selected tag
 
   // Reset selection when prompts change
   useEffect(() => {
@@ -17,6 +18,7 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
   // Handle selecting a prompt
   const handleSelectPrompt = (prompt) => {
     setSelectedPrompt(prompt);
+    setSelectedTag(null); // Reset selected tag
 
     // Initialize variable values
     const initialValues = {};
@@ -54,6 +56,11 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
     onCopyToClipboard(compiledPrompt);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
+  };
+
+  // Handle tag click
+  const handleTagClick = (tag) => {
+    setSelectedTag(tag);
   };
 
   // Filter prompts based on search term
@@ -266,7 +273,11 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
                   <div>
                     <span style={{ fontSize: 'small', fontWeight: 'bold' }}>Patterns: </span>
                     {selectedPrompt.patterns && selectedPrompt.patterns.map(pattern => (
-                      <span key={pattern} style={{ ...vscodeStyles.tag, ...vscodeStyles.patternTag, marginLeft: '4px' }}>
+                      <span
+                        key={pattern}
+                        style={{ ...vscodeStyles.tag, ...vscodeStyles.patternTag, marginLeft: '4px' }}
+                        onClick={() => handleTagClick(pattern)} // Add click handler
+                      >
                         {pattern}
                       </span>
                     ))}
@@ -344,6 +355,13 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
                   <div style={vscodeStyles.codeBlock}>
                     {compiledPrompt}
                   </div>
+                </div>
+              )}
+
+              {selectedTag && (
+                <div style={vscodeStyles.card}>
+                  <h3 style={{ margin: 0 }}>Selected Tag: {selectedTag}</h3>
+                 Hello
                 </div>
               )}
             </div>

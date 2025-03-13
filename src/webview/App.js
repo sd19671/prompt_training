@@ -27,7 +27,7 @@ function App() {
       
       switch (message.command) {
         case 'setPrompts':
-          console.log('Prompts received:', message.prompts.length);
+          // console.log('Prompts received:', message.prompts.length);
           setPrompts(message.prompts);
           break;
         case 'promptAdded':

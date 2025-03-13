@@ -1,5 +1,4 @@
-{
-    "patterns": [
+[
         {
             "name": "Meta Language Creation",
             "category": "Input Semantics",
@@ -97,4 +96,4 @@
             ]
         }
     ]
-}
+    

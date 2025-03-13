@@ -1,7 +1,7 @@
 const vscode = require('vscode');
 const path = require('path');
 const fs = require('fs');
-const { get } = require('http');
+// const { get } = require('http');
 
 // Sample prompt data used as default if no storage exists yet
 const defaultTemplatesPath = path.join(__dirname, 'data', 'default_templates.json');

@@ -26,7 +26,7 @@ function activate(context) {
       };
 
       webviewView.webview.onDidReceiveMessage(message => {
-        console.log('Received message:', message.command);
+        // console.log('Received message:', message.command);
         switch (message.command) {
           case 'getPrompts':
             const prompts = promptStorage.getPrompts();
@@ -76,7 +76,7 @@ class PromptManagerPanel {
         switch (message.command) {
           case 'getPrompts':
             const prompts = this.promptStorage.getPrompts();
-            console.log('Sending prompts:', prompts);
+            // console.log('Sending prompts:', prompts);
             this.panel.webview.postMessage({
               command: 'setPrompts',
               prompts
