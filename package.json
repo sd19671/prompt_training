@@ -19,8 +19,38 @@
       {
         "command": "prompt-manager.openPromptManager",
         "title": "Open Prompt Manager"
+      },
+      {
+        "command": "prompt-manager.openSettings",
+        "title": "Open Prompt Manager Settings"
       }
     ],
+    "configuration": {
+      "title": "Prompt Manager",
+      "properties": {
+        "promptManager.dataSource.type": {
+          "type": "string",
+          "enum": ["local", "github"],
+          "default": "local",
+          "description": "Source for prompt data storage"
+        },
+        "promptManager.github.repository": {
+          "type": "string",
+          "default": "",
+          "description": "GitHub repository for prompt storage (e.g., username/repo-name)"
+        },
+        "promptManager.github.branch": {
+          "type": "string",
+          "default": "main",
+          "description": "GitHub branch to use for prompt storage"
+        },
+        "promptManager.github.path": {
+          "type": "string",
+          "default": "prompts",
+          "description": "Path within repository for prompt files"
+        }
+      }
+    },
     "viewsContainers": {
       "activitybar": [
         {

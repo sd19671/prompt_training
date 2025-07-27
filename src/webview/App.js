@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PromptManager from './PromptManager';
 
-// Acquire the VS Code API
-const vscode = acquireVsCodeApi();
-
-function App() {
+function App({ vscode }) {
   // State for prompts
   const [prompts, setPrompts] = useState([]);
   const [initialized, setInitialized] = useState(false);
 
   // Effect to load prompts when the component mounts
   useEffect(() => {
-    if (!initialized) {
+    if (!initialized && vscode) {
       console.log('Requesting prompts from extension');
       // Request prompts data from the extension
       vscode.postMessage({
@@ -48,14 +45,16 @@ function App() {
 
     window.addEventListener('message', messageListener);
     return () => window.removeEventListener('message', messageListener);
-  }, [initialized]);
+  }, [initialized, vscode]);
 
   // Function to handle copying to clipboard through VS Code API
   const handleCopyToClipboard = (text) => {
-    vscode.postMessage({
-      command: 'copyToClipboard',
-      text
-    });
+    if (vscode) {
+      vscode.postMessage({
+        command: 'copyToClipboard',
+        text
+      });
+    }
   };
 
   return (

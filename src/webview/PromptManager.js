@@ -139,6 +139,15 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
       borderRadius: '3px',
       cursor: 'pointer'
     },
+    secondaryButton: {
+      padding: '6px 12px',
+      backgroundColor: 'var(--vscode-button-secondaryBackground)',
+      color: 'var(--vscode-button-secondaryForeground)',
+      border: '1px solid var(--vscode-button-border)',
+      borderRadius: '3px',
+      cursor: 'pointer',
+      fontSize: '13px'
+    },
     disabledButton: {
       backgroundColor: 'var(--vscode-button-secondaryBackground)',
       color: 'var(--vscode-button-secondaryForeground)',
@@ -219,6 +228,21 @@ const PromptManager = ({ prompts, onCopyToClipboard }) => {
               }}
             >
               Edit
+            </button>
+            <div></div>
+            <button
+              style={{
+                ...vscodeStyles.secondaryButton,
+                marginBottom: '10px'
+              }}
+              onClick={() => {
+                // Send command to open settings
+                if (window.vscode) {
+                  window.vscode.postMessage({ command: 'openSettings' });
+                }
+              }}
+            >
+              Settings
             </button>
 
             <div>
