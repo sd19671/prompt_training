@@ -1,0 +1,330 @@
+{
+  "github_repo_hygiene_prompts": {
+    "metadata": {
+      "title": "GitHub Repository Hygiene Prompts for Enterprise Engineering Teams",
+      "description": "Claude Code compatible prompts using JavaScript/Node.js and PowerShell for automating GitHub repository best practices",
+      "target_tool": "Claude Code",
+      "focus": "Executable scripts using JavaScript/Node.js and PowerShell for repo hygiene automation",
+      "tech_stack": ["JavaScript", "Node.js", "PowerShell", "Octokit", "GitHub CLI"]
+    },
+    "categories": {
+      "repository_configuration": {
+        "description": "Prompts for configuring repository settings and standards",
+        "prompts": [
+          {
+            "name": "Repository Settings Audit Script",
+            "prompt": "Generate a Node.js script using Octokit that audits all repositories in our organization for compliance with enterprise standards: default branch is 'main', branch protection enabled, required status checks configured, dismiss stale reviews enabled, require branches to be up to date, and restrict pushes to matching branches. Include detailed HTML reporting and remediation suggestions. Use async/await and proper error handling.",
+            "expected_output": "Node.js script with Octokit GitHub API integration, compliance checking, and HTML report generation",
+            "use_case": "Automated repository compliance auditing",
+            "enterprise_considerations": ["API rate limiting", "Organization-wide scanning", "Compliance reporting"]
+          },
+          {
+            "name": "Branch Protection Rules Template",
+            "prompt": "Create a Node.js script using Octokit that applies standardized branch protection rules to repositories. Include: require pull request reviews (minimum 2), dismiss stale reviews, require status checks, enforce linear history, restrict pushes to admins only, and require conversation resolution. Make it configurable with JSON config files for different repository types (frontend, backend, infrastructure).",
+            "expected_output": "Node.js script with configurable branch protection rule templates using JSON configuration",
+            "use_case": "Standardized branch protection enforcement",
+            "enterprise_considerations": ["Role-based access control", "Repository type customization", "Audit logging"]
+          },
+          {
+            "name": "Default Branch Migration Script",
+            "prompt": "Generate a comprehensive PowerShell script that migrates repositories from 'master' to 'main' as default branch using GitHub CLI. Include: branch creation, protection rule migration, CI/CD pipeline updates, local clone instructions, and rollback procedures. Handle pull requests, issues, and webhook configurations. Provide pre-migration checklist and validation steps.",
+            "expected_output": "PowerShell script with GitHub CLI commands, validation, rollback, and documentation",
+            "use_case": "Safe default branch migration across multiple repositories",
+            "enterprise_considerations": ["Zero-downtime migration", "CI/CD compatibility", "Team coordination"]
+          }
+        ]
+      },
+      "codeowners_management": {
+        "description": "Prompts for CODEOWNERS file generation and management",
+        "prompts": [
+          {
+            "name": "CODEOWNERS File Generator",
+            "prompt": "Create a Node.js script that generates CODEOWNERS files based on repository structure analysis and team assignments. Use fs module to parse directory structures, identify code patterns (frontend/, backend/, infrastructure/), map to team ownership based on JSON configuration file, and generate properly formatted CODEOWNERS with glob patterns. Include validation for team member existence using Octokit.",
+            "expected_output": "Node.js script with directory analysis, team mapping, and CODEOWNERS generation",
+            "use_case": "Automated CODEOWNERS file creation and maintenance",
+            "enterprise_considerations": ["Team structure alignment", "Glob pattern optimization", "Ownership validation"]
+          },
+          {
+            "name": "CODEOWNERS Validation Script",
+            "prompt": "Generate a Node.js script that validates CODEOWNERS files across repositories for correctness and completeness. Check: valid team/user references using Octokit, proper glob pattern syntax with minimatch library, coverage analysis (identify unowned files), conflicting patterns, and team member activity status. Create GitHub Actions workflow integration to prevent invalid CODEOWNERS merges.",
+            "expected_output": "Node.js validation script with GitHub Actions workflow and detailed error reporting",
+            "use_case": "CODEOWNERS file quality assurance",
+            "enterprise_considerations": ["CI/CD integration", "Coverage metrics", "Team validation"]
+          },
+          {
+            "name": "Dynamic CODEOWNERS Updates",
+            "prompt": "Create a GitHub Actions workflow using Node.js that automatically updates CODEOWNERS files when team members change, new directories are added, or ownership rules change. Include team roster synchronization, pattern recognition for new code areas using glob patterns, and automated pull request creation for CODEOWNERS updates with proper review assignments using Octokit.",
+            "expected_output": "GitHub Actions workflow with Node.js script for team sync and automated updates",
+            "use_case": "Self-maintaining CODEOWNERS files",
+            "enterprise_considerations": ["Team sync automation", "Change approval workflow", "Team notification"]
+          }
+        ]
+      },
+      "readme_standards": {
+        "description": "Prompts for README file standards and automation",
+        "prompts": [
+          {
+            "name": "README Template Generator",
+            "prompt": "Generate a Node.js script that creates comprehensive README.md templates based on repository type detection (React app, Node.js API, infrastructure). Use fs module to analyze package.json, detect frameworks, and generate templates including: project description, prerequisites, installation instructions, usage examples, API documentation links, testing instructions, deployment guides, contributing guidelines, and license information. Make templates customizable with organization-specific sections using template literals.",
+            "expected_output": "Node.js template generation script with repository type detection and customization",
+            "use_case": "Standardized README creation across repositories",
+            "enterprise_considerations": ["Template versioning", "Organization branding", "Compliance sections"]
+          },
+          {
+            "name": "README Quality Checker",
+            "prompt": "Create a Node.js script that audits README files for completeness and quality. Use markdown parsing libraries to check for: required sections (description, installation, usage, contributing), broken links using node-fetch, outdated badges, missing API documentation, installation command validation, and readability metrics. Generate quality scores and improvement recommendations as JSON reports.",
+            "expected_output": "Node.js README auditing script with quality scoring and recommendations",
+            "use_case": "README quality assurance and improvement tracking",
+            "enterprise_considerations": ["Quality metrics", "Link validation", "Documentation standards"]
+          },
+          {
+            "name": "Auto-README Updates",
+            "prompt": "Generate a GitHub Actions workflow using Node.js that automatically updates README files with current information: package versions from package.json, API endpoints from OpenAPI specs, build status badges, test coverage from coverage reports, and deployment status. Parse project files and update documentation using string replacement and markdown manipulation.",
+            "expected_output": "GitHub Actions workflow with Node.js script for automated README maintenance",
+            "use_case": "Self-updating README files with current project information",
+            "enterprise_considerations": ["Version synchronization", "Badge management", "Change notifications"]
+          }
+        ]
+      },
+      "code_review_automation": {
+        "description": "Prompts for code review process automation and enforcement",
+        "prompts": [
+          {
+            "name": "Code Review Policy Enforcer",
+            "prompt": "Create a GitHub Actions workflow using Node.js and Octokit that enforces code review policies: minimum reviewers required, prevent self-approval, require specific team reviews for sensitive areas, enforce review assignment rotation, and track review response times. Include escalation for overdue reviews and exemption handling for emergency changes using GitHub API webhooks.",
+            "expected_output": "GitHub Actions workflow with Node.js script for comprehensive review policy enforcement",
+            "use_case": "Automated code review governance and quality assurance",
+            "enterprise_considerations": ["Review assignment logic", "Emergency change procedures", "Compliance tracking"]
+          },
+          {
+            "name": "Review Assignment Optimizer",
+            "prompt": "Generate a Node.js script using Octokit that intelligently assigns code reviewers based on: file ownership (CODEOWNERS parsing), reviewer expertise areas from JSON config, current workload analysis, time zones, and review history. Implement round-robin assignment with expertise weighting and workload balancing. Include reviewer availability integration using calendar APIs.",
+            "expected_output": "Node.js intelligent review assignment script with workload balancing",
+            "use_case": "Optimized reviewer assignment for faster, higher-quality reviews",
+            "enterprise_considerations": ["Workload balancing", "Expertise matching", "Global team coordination"]
+          },
+          {
+            "name": "Code Review Metrics Dashboard",
+            "prompt": "Create a Node.js application using Express and Chart.js that generates code review analytics: average review time, reviewer response rates, approval rates, comment density, and quality metrics. Pull data from GitHub API using Octokit, generate visualizations, and create automated reports. Include team performance comparisons and improvement recommendations.",
+            "expected_output": "Node.js Express application with Chart.js visualization and reporting capabilities",
+            "use_case": "Code review process monitoring and improvement",
+            "enterprise_considerations": ["Performance metrics", "Team comparisons", "Privacy considerations"]
+          }
+        ]
+      },
+      "commit_and_merge_hygiene": {
+        "description": "Prompts for commit message standards and merge strategy enforcement",
+        "prompts": [
+          {
+            "name": "Commit Message Validator",
+            "prompt": "Generate a Node.js Git pre-commit hook script using simple-git library that validates commit messages against enterprise standards: conventional commit format, maximum line lengths, required ticket references with regex patterns, prohibited words/patterns, and semantic versioning triggers. Include configuration through package.json for different project types and team-specific rules.",
+            "expected_output": "Node.js Git pre-commit hook with configurable validation rules",
+            "use_case": "Enforced commit message standards and quality",
+            "enterprise_considerations": ["Conventional commits", "Ticket system integration", "Team customization"]
+          },
+          {
+            "name": "Linear History Enforcer",
+            "prompt": "Create a GitHub Actions workflow using Node.js that ensures linear commit history by validating pull requests for: no merge commits using git log analysis, proper rebase history, squash-and-merge enforcement, and commit message continuity. Prevent merge if history is not linear and provide remediation instructions to developers using PR comments via Octokit.",
+            "expected_output": "GitHub Actions workflow with Node.js script enforcing linear history requirements",
+            "use_case": "Clean, linear Git history maintenance",
+            "enterprise_considerations": ["History cleanliness", "Developer education", "Merge strategy enforcement"]
+          },
+          {
+            "name": "Commit Quality Analyzer",
+            "prompt": "Generate a Node.js script using simple-git that analyzes commit quality across repositories: commit size distribution, message quality scores using natural language processing, file change patterns, author contribution analysis, and code churn metrics. Identify commits that may need review or refactoring suggestions using statistical analysis.",
+            "expected_output": "Node.js commit analysis script with quality metrics and recommendations",
+            "use_case": "Code quality insights from commit history analysis",
+            "enterprise_considerations": ["Quality metrics", "Developer feedback", "Refactoring recommendations"]
+          }
+        ]
+      },
+      "repository_topics_and_metadata": {
+        "description": "Prompts for repository metadata management and standardization",
+        "prompts": [
+          {
+            "name": "Repository Topic Standardizer",
+            "prompt": "Create a Node.js script using Octokit that standardizes repository topics across the organization. Analyze repository content (package.json, requirements.txt, Dockerfile, etc.) using fs module to automatically suggest appropriate topics, enforce topic naming conventions with validation rules, and maintain a centralized topic taxonomy in JSON. Include bulk updates and validation against approved topic lists.",
+            "expected_output": "Node.js repository topic management script with automatic categorization",
+            "use_case": "Consistent repository categorization and discoverability",
+            "enterprise_considerations": ["Topic taxonomy", "Content analysis", "Bulk operations"]
+          },
+          {
+            "name": "Repository Metadata Auditor",
+            "prompt": "Generate a comprehensive Node.js script using Octokit that audits repository metadata: descriptions, topics, homepage URLs, license information, language detection accuracy, and social preview images. Compare against organization standards defined in JSON configuration and generate compliance reports with remediation steps as HTML output.",
+            "expected_output": "Node.js metadata auditing script with compliance reporting",
+            "use_case": "Repository metadata compliance and standardization",
+            "enterprise_considerations": ["Metadata standards", "Compliance tracking", "Bulk remediation"]
+          },
+          {
+            "name": "Repository Health Dashboard",
+            "prompt": "Create a Node.js Express application that displays repository health metrics: activity levels, contributor diversity, issue response times, PR merge rates, security alert status, dependency freshness using npm audit, and documentation completeness. Use Octokit for GitHub API data collection and Chart.js for visualizations with a responsive web interface.",
+            "expected_output": "Node.js Express web application with comprehensive repository health metrics",
+            "use_case": "Organization-wide repository health monitoring",
+            "enterprise_considerations": ["Health scoring", "Trend analysis", "Executive reporting"]
+          }
+        ]
+      },
+      "security_and_dependency_management": {
+        "description": "Prompts for repository security and dependency hygiene",
+        "prompts": [
+          {
+            "name": "Dependency Vulnerability Scanner",
+            "prompt": "Generate a Node.js script that scans all repositories for dependency vulnerabilities, outdated packages, and license compliance issues. Integrate with npm audit, yarn audit, GitHub security advisories using Octokit, and license-checker. Create prioritized remediation reports as JSON and automated issue creation for high-severity vulnerabilities using GitHub API.",
+            "expected_output": "Node.js comprehensive dependency security scanning script with automated reporting",
+            "use_case": "Organization-wide dependency security monitoring",
+            "enterprise_considerations": ["Vulnerability prioritization", "License compliance", "Automated issue creation"]
+          },
+          {
+            "name": "Secrets Detection and Remediation",
+            "prompt": "Create a Node.js script that scans repositories for accidentally committed secrets, API keys, and sensitive information. Use regex patterns for common secret formats, integrate with GitHub secret scanning API via Octokit, include historical scan capabilities using git log, false positive management with configuration files, and automated secret rotation triggers when secrets are found.",
+            "expected_output": "Node.js secrets scanning script with detection, reporting, and remediation workflows",
+            "use_case": "Preventing and remediating exposed secrets in repositories",
+            "enterprise_considerations": ["Secret rotation", "False positive handling", "Incident response"]
+          },
+          {
+            "name": "Security Policy Enforcer",
+            "prompt": "Generate a GitHub Actions workflow using Node.js that enforces repository security policies: require security.md files, mandate dependency scanning with npm audit, enforce branch protection with security checks, validate CODEOWNERS for security-sensitive paths, and ensure security team review for critical changes using path-based rules and Octokit API.",
+            "expected_output": "GitHub Actions security policy enforcement workflow with comprehensive checks",
+            "use_case": "Automated security policy compliance across repositories",
+            "enterprise_considerations": ["Security team integration", "Policy customization", "Compliance reporting"]
+          }
+        ]
+      },
+      "ci_cd_integration": {
+        "description": "Prompts for CI/CD pipeline standards and repository integration",
+        "prompts": [
+          {
+            "name": "CI/CD Pipeline Standardizer",
+            "prompt": "Create a Node.js script that standardizes CI/CD pipelines across repositories based on project type detection. Generate GitHub Actions workflows for: testing with Jest/Mocha, security scanning with npm audit, dependency checking, build processes using npm/yarn scripts, and deployment stages. Include environment-specific configurations using JSON templates and approval processes for production deployments.",
+            "expected_output": "Node.js CI/CD pipeline generation script with project type templates",
+            "use_case": "Standardized CI/CD across all repositories",
+            "enterprise_considerations": ["Pipeline templates", "Environment management", "Approval workflows"]
+          },
+          {
+            "name": "Build Status Aggregator",
+            "prompt": "Generate a Node.js Express dashboard application that aggregates build and deployment status across all repositories using GitHub Actions API via Octokit. Track: build success rates, deployment frequency, lead times, and failure recovery times. Create alerts for broken builds and trend analysis for CI/CD performance improvements using Chart.js visualizations.",
+            "expected_output": "Node.js CI/CD metrics dashboard with alerting and trend analysis",
+            "use_case": "Organization-wide CI/CD health monitoring",
+            "enterprise_considerations": ["Performance metrics", "Alerting systems", "Trend analysis"]
+          },
+          {
+            "name": "Test Coverage Enforcer",
+            "prompt": "Create a GitHub Actions workflow using Node.js that enforces minimum test coverage requirements, tracks coverage trends, and prevents merges that decrease coverage below thresholds. Include coverage reporting using NYC/Istanbul, badge generation, and team notifications for coverage changes using Slack webhooks or email notifications.",
+            "expected_output": "GitHub Actions test coverage enforcement workflow with reporting and notifications",
+            "use_case": "Maintaining and improving code test coverage standards",
+            "enterprise_considerations": ["Coverage thresholds", "Team notifications", "Trend tracking"]
+          }
+        ]
+      },
+      "repository_cleanup_and_maintenance": {
+        "description": "Prompts for repository maintenance and cleanup automation",
+        "prompts": [
+          {
+            "name": "Stale Repository Detector",
+            "prompt": "Generate a Node.js script using Octokit that identifies stale or abandoned repositories based on: last commit date, issue activity, contributor activity, and dependency freshness using npm outdated. Create reports with recommendations for archiving, consolidation, or revival. Include stakeholder notification using email or Slack integration before archiving actions.",
+            "expected_output": "Node.js repository lifecycle management script with stakeholder notifications",
+            "use_case": "Maintaining clean repository portfolio and reducing maintenance overhead",
+            "enterprise_considerations": ["Stakeholder approval", "Data retention", "Migration procedures"]
+          },
+          {
+            "name": "Branch Cleanup Automation",
+            "prompt": "Create a PowerShell script using GitHub CLI that automatically cleans up stale branches: merged branches older than specified days, abandoned feature branches, and branches with no recent activity. Include protection for important branches, stakeholder notifications via email, and restoration procedures using git reflog if needed.",
+            "expected_output": "PowerShell automated branch cleanup script with safety measures and notifications",
+            "use_case": "Maintaining clean branch structure and reducing repository clutter",
+            "enterprise_considerations": ["Branch protection", "Developer notifications", "Restoration procedures"]
+          },
+          {
+            "name": "Repository Migration Toolkit",
+            "prompt": "Generate a comprehensive PowerShell script using GitHub CLI for migrating repositories between GitHub organizations or consolidating multiple repositories. Handle: issue migration, PR preservation, branch protection transfer, webhook reconfiguration, and team access migration. Include validation steps and rollback procedures using GitHub API backup data.",
+            "expected_output": "PowerShell repository migration toolkit with validation and rollback",
+            "use_case": "Safe repository reorganization and consolidation",
+            "enterprise_considerations": ["Zero-downtime migration", "Access control preservation", "Audit trail maintenance"]
+          }
+        ]
+      }
+    },
+    "usage_guidelines": {
+      "claude_code_integration": {
+        "description": "Guidelines for using these prompts effectively with Claude Code using JavaScript/Node.js and PowerShell",
+        "recommendations": [
+          "Use specific prompts that generate concrete, executable Node.js scripts or PowerShell scripts",
+          "Include proper error handling and async/await patterns in Node.js scripts",
+          "Ensure scripts include package.json dependencies and installation instructions",
+          "Add comprehensive documentation and usage instructions in generated code",
+          "Include validation and dry-run modes for safety",
+          "Use environment variables for sensitive configuration (GitHub tokens, etc.)"
+        ]
+      },
+      "technology_stack": {
+        "node_js": {
+          "key_libraries": [
+            "@octokit/rest - GitHub API client",
+            "simple-git - Git operations",
+            "fs - File system operations",
+            "minimatch - Glob pattern matching",
+            "express - Web applications",
+            "chart.js - Data visualization",
+            "node-fetch - HTTP requests",
+            "commander - CLI argument parsing"
+          ],
+          "best_practices": [
+            "Use async/await for better readability",
+            "Include proper error handling with try/catch",
+            "Use environment variables for configuration",
+            "Add comprehensive logging for debugging",
+            "Include package.json with all dependencies"
+          ]
+        },
+        "powershell": {
+          "key_tools": [
+            "GitHub CLI (gh) - GitHub operations",
+            "Git CLI - Repository operations", 
+            "Invoke-RestMethod - HTTP API calls",
+            "ConvertTo-Json/ConvertFrom-Json - JSON handling",
+            "Send-MailMessage - Email notifications"
+          ],
+          "best_practices": [
+            "Use proper error handling with try/catch",
+            "Include parameter validation",
+            "Add comprehensive help comments",
+            "Use secure string handling for secrets",
+            "Include progress indicators for long operations"
+          ]
+        }
+      },
+      "enterprise_considerations": {
+        "security": [
+          "Always use environment variables or secure credential storage",
+          "Include API rate limiting and retry logic with exponential backoff",
+          "Implement proper logging without exposing sensitive information",
+          "Include audit trails for all automated actions",
+          "Use GitHub App authentication where possible for better security"
+        ],
+        "scalability": [
+          "Design scripts to handle large numbers of repositories with pagination",
+          "Include parallel processing capabilities using Promise.all() in Node.js",
+          "Implement retry logic with exponential backoff for API failures",
+          "Consider memory usage for bulk operations",
+          "Add progress reporting for long-running operations"
+        ],
+        "governance": [
+          "Include approval workflows for destructive operations",
+          "Maintain configuration as code using JSON files",
+          "Provide rollback procedures for all automated changes",
+          "Include comprehensive reporting and monitoring",
+          "Add validation steps before executing changes"
+        ]
+      }
+    },
+    "sample_claude_code_commands": [
+      "claude-code \"Generate a Node.js script using Octokit that audits all repositories in our organization for branch protection compliance and creates HTML reports\"",
+      "claude-code \"Create a Node.js CODEOWNERS file generator script that maps directory structures to team ownership using glob patterns\"", 
+      "claude-code \"Generate a GitHub Actions workflow using Node.js that enforces linear commit history and prevents merge commits\"",
+      "claude-code \"Create a Node.js Express repository health dashboard that shows security, dependency, and activity metrics using Chart.js\"",
+      "claude-code \"Generate a PowerShell script using GitHub CLI that standardizes repository topics based on content analysis\"",
+      "claude-code \"Create a Node.js script that validates commit messages using conventional commit format with configurable rules\"",
+      "claude-code \"Generate a PowerShell script that migrates repositories from master to main branch with proper validation and rollback\"",
+      "claude-code \"Create a Node.js dependency vulnerability scanner that integrates with npm audit and GitHub security advisories\""
+    ]
+  }
+}

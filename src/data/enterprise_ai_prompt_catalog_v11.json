@@ -1,0 +1,738 @@
+{
+  "catalog_metadata": {
+    "title": "Enterprise AI Prompt Pattern Catalog for Fortune 100 Engineering Teams",
+    "version": "11.0",
+    "last_updated": "2025-01-27",
+    "total_patterns": 16,
+    "target_audience": "Software engineers in Fortune 100 enterprise companies",
+    "enterprise_context": {
+      "design_system": "SDS (Custom React Design System)",
+      "cloud_platform": "TFE (Terraform Enterprise)",
+      "key_compliance": ["Security Standards", "Data Privacy", "WCAG 2.1 AA"],
+      "enterprise_tools": ["Snowflake", "MongoDB", "Splunk", "Veracode"]
+    }
+  },
+  "pattern_categories": {
+    "input_semantics": {
+      "description": "Patterns that control how LLMs understand and interpret input",
+      "pattern_count": 1
+    },
+    "output_customization": {
+      "description": "Patterns that control the format, structure, and characteristics of LLM outputs",
+      "pattern_count": 5
+    },
+    "error_identification": {
+      "description": "Patterns that help identify and address errors, assumptions, and limitations",
+      "pattern_count": 2
+    },
+    "prompt_improvement": {
+      "description": "Patterns that enhance the quality and effectiveness of prompts",
+      "pattern_count": 4
+    },
+    "interaction": {
+      "description": "Patterns that modify how users interact with LLMs",
+      "pattern_count": 3
+    },
+    "context_control": {
+      "description": "Patterns that manage conversational context and scope",
+      "pattern_count": 1
+    }
+  },
+  "patterns": [
+    {
+      "id": 1,
+      "name": "Meta Language Creation",
+      "category": "Input Semantics",
+      "intent_context": "Enable an LLM to understand custom notation, domain-specific languages, or shorthand relevant to enterprise systems and business architecture.",
+      "motivation": "Enterprise systems often use domain-specific notation (business rules, performance metrics, compliance codes) that require precise interpretation by AI systems.",
+      "structure_key_ideas": [
+        "Define mapping between custom symbols/phrases and their enterprise meanings",
+        "Establish context for business domain terminology", 
+        "Specify formatting constraints for regulatory compliance",
+        "Ensure consistency across team communications"
+      ],
+      "consequences": [
+        "May create confusion if notation conflicts with existing standards",
+        "Requires team alignment on notation definitions",
+        "Can improve precision in financial domain discussions",
+        "Risk of creating siloed knowledge if not properly documented"
+      ],
+      "experience_level_guidance": {
+        "junior": {
+          "opportunities": [
+            "Learn enterprise domain language and notation",
+            "Understand financial system terminology consistently",
+            "Build confidence with complex business concepts",
+            "Create standardized documentation practices"
+          ],
+          "pitfalls": [
+            "May define notation that conflicts with regulatory standards",
+            "Could create overly complex custom languages",
+            "Risk misunderstanding existing enterprise conventions",
+            "Might not consider compliance implications"
+          ],
+          "best_practices": [
+            "Validate notation with senior developers and compliance teams",
+            "Document all custom definitions in enterprise wiki",
+            "Use established financial industry notation when possible",
+            "Start with simple, well-understood domain concepts"
+          ]
+        },
+        "mid": {
+          "opportunities": [
+            "Standardize API documentation across microservices",
+            "Create efficient notation for complex financial calculations",
+            "Improve cross-team communication on architecture",
+            "Develop domain-specific testing languages"
+          ],
+          "pitfalls": [
+            "May create notation that doesn't scale across teams",
+            "Could conflict with enterprise architecture standards",
+            "Risk creating maintenance burden for custom languages",
+            "Might not align with existing data governance policies"
+          ],
+          "best_practices": [
+            "Collaborate with enterprise architects on notation standards",
+            "Ensure notation integrates with existing tooling",
+            "Consider long-term maintenance and team scalability",
+            "Align with API governance and documentation standards"
+          ]
+        },
+        "senior": {
+          "opportunities": [
+            "Define enterprise-wide notation standards",
+            "Create specialized languages for risk modeling",
+            "Establish compliance-aware communication protocols",
+            "Build domain-specific architectural patterns"
+          ],
+          "pitfalls": [
+            "May create overly complex notation systems",
+            "Could introduce unnecessary abstraction layers",
+            "Risk creating barriers to junior developer understanding",
+            "Might not consider future regulatory changes"
+          ],
+          "best_practices": [
+            "Design notation with regulatory compliance in mind",
+            "Ensure notation can evolve with regulatory changes",
+            "Create comprehensive training materials for teams",
+            "Establish governance processes for notation changes"
+          ]
+        }
+      },
+      "sdlc_stage_mapping": {
+        "requirements": {
+          "relevance": "High",
+          "use_cases": ["Define business rule notation", "Standardize requirement specifications", "Create compliance requirement templates"],
+          "time_savings": "Medium - improves clarity and reduces miscommunication"
+        },
+        "design": {
+          "relevance": "Very High",
+          "use_cases": ["Architectural decision records", "API design specifications", "Data model documentation"],
+          "time_savings": "High - enables precise technical communication"
+        },
+        "implementation": {
+          "relevance": "Medium",
+          "use_cases": ["Code documentation standards", "Configuration management notation"],
+          "time_savings": "Low - mostly improves consistency"
+        },
+        "testing": {
+          "relevance": "High",
+          "use_cases": ["Test case notation", "Risk scenario definitions", "Compliance test specifications"],
+          "time_savings": "Medium - standardizes test documentation"
+        },
+        "deployment": {
+          "relevance": "Medium",
+          "use_cases": ["Infrastructure as code notation", "Deployment procedure documentation"],
+          "time_savings": "Low - mainly for documentation clarity"
+        },
+        "maintenance": {
+          "relevance": "Low",
+          "use_cases": ["Incident response procedures", "Change management notation"],
+          "time_savings": "Low - limited maintenance applications"
+        }
+      },
+      "enterprise_examples": [
+        {
+          "scenario": "Business analytics documentation",
+          "prompt": "From now on, when I write 'Analytics[metric, dimension, filter]', I mean calculate the specified business metric grouped by dimension with the given filter using our enterprise analytics engine. Include data lineage and audit trails in all outputs.",
+          "output_type": "Standardized business analytics request",
+          "compliance_considerations": ["Data governance", "Data lineage tracking", "Audit trail requirements"]
+        },
+        {
+          "scenario": "Database query notation", 
+          "prompt": "When I write 'SF_QUERY[table, filters, projections]', generate a Snowflake SQL query for the specified table with proper data masking for PII fields, appropriate warehouse sizing, and cost optimization. When I write 'MONGO_AGG[collection, pipeline_stages]', create MongoDB aggregation pipeline with proper indexing hints.",
+          "output_type": "Standardized database query notation with enterprise compliance",
+          "compliance_considerations": ["PII data masking", "Cost governance", "Performance optimization"]
+        },
+        {
+          "scenario": "Serverless architecture notation",
+          "prompt": "When I use 'SERVERLESS[trigger-type, function-name, resources]', design AWS Lambda architecture following our enterprise patterns including VPC configuration, IAM roles, monitoring, and cost allocation tags. Include proper error handling and dead letter queues.",
+          "output_type": "Enterprise serverless architecture specification", 
+          "compliance_considerations": ["VPC security requirements", "IAM governance", "Cost allocation standards"]
+        }
+      ],
+      "pattern_combinations": [
+        {
+          "with": "Template Pattern",
+          "benefit": "Create standardized notation within enterprise templates",
+          "use_case": "Compliance documentation with custom financial notation"
+        },
+        {
+          "with": "Fact Check List",
+          "benefit": "Validate custom notation against enterprise standards",
+          "use_case": "Ensure notation aligns with regulatory requirements"
+        }
+      ],
+      "enterprise_considerations": {
+        "data_security": ["Ensure notation doesn't expose sensitive data", "Consider classification levels in notation design"],
+        "api_governance": ["Align notation with API documentation standards", "Ensure consistency across service definitions"],
+        "compliance": ["Validate against SOX, PCI-DSS requirements", "Ensure audit trail compatibility"],
+        "tfe_integration": ["Consider Terraform variable notation alignment", "Ensure cloud resource naming consistency"]
+      },
+      "risk_assessment": {
+        "low_risk_scenarios": ["Documentation notation", "Internal team communication standards"],
+        "medium_risk_scenarios": ["API specification languages", "Configuration notation"],
+        "high_risk_scenarios": ["Business calculation notation", "Compliance reporting languages"],
+        "mitigation_strategies": ["Compliance team review", "Enterprise architect approval", "Regulatory validation", "Documentation in central repository"]
+      }
+    },
+    {
+      "id": 2,
+      "name": "Output Automater",
+      "category": "Output Customization",
+      "intent_context": "Generate executable scripts for TFE deployments, CI/CD pipelines, and enterprise automation while maintaining security and compliance standards.",
+      "motivation": "Enterprise institutions require repeatable, auditable automation with strict security controls. Manual processes introduce risk and compliance gaps.",
+      "structure_key_ideas": [
+        "Identify multi-step processes suitable for automation",
+        "Generate scripts compatible with enterprise tooling (TFE, Jenkins, etc.)",
+        "Include security scanning and compliance checks",
+        "Ensure audit trails and rollback capabilities"
+      ],
+      "consequences": [
+        "Generated scripts must pass security review before execution",
+        "Requires integration with enterprise CI/CD and governance tools",
+        "Can significantly reduce deployment times and human error",
+        "May create complex automation that's difficult to troubleshoot"
+      ],
+      "experience_level_guidance": {
+        "junior": {
+          "opportunities": [
+            "Learn enterprise deployment patterns through generated examples",
+            "Understand TFE and cloud automation best practices",
+            "Build confidence with infrastructure as code",
+            "Practice security-first automation approaches"
+          ],
+          "pitfalls": [
+            "May generate scripts that don't meet security standards",
+            "Could bypass required approval processes",
+            "Risk creating automation without proper error handling",
+            "Might not understand generated script implications"
+          ],
+          "best_practices": [
+            "Always submit generated scripts for senior developer review",
+            "Test all automation in development environments first",
+            "Include comprehensive logging and monitoring",
+            "Follow enterprise security scanning procedures"
+          ]
+        },
+        "mid": {
+          "opportunities": [
+            "Accelerate TFE module development and deployment",
+            "Generate compliant CI/CD pipelines quickly",
+            "Automate security scanning integration",
+            "Create standardized deployment procedures"
+          ],
+          "pitfalls": [
+            "May generate scripts that don't integrate with enterprise monitoring",
+            "Could create automation that bypasses required security gates",
+            "Risk generating non-compliant infrastructure code",
+            "Might not consider enterprise backup and disaster recovery"
+          ],
+          "best_practices": [
+            "Integrate with enterprise monitoring and alerting systems",
+            "Ensure all scripts include required security scanning steps",
+            "Validate against enterprise infrastructure standards",
+            "Include proper secret management and rotation"
+          ]
+        },
+        "senior": {
+          "opportunities": [
+            "Generate complex multi-environment deployment strategies",
+            "Create enterprise-wide automation standards",
+            "Build compliance-aware infrastructure automation",
+            "Develop disaster recovery and business continuity scripts"
+          ],
+          "pitfalls": [
+            "May create overly complex automation systems",
+            "Could generate scripts that don't align with enterprise architecture",
+            "Risk creating single points of failure in automation",
+            "Might not consider long-term maintenance and scalability"
+          ],
+          "best_practices": [
+            "Design automation with enterprise resilience patterns",
+            "Ensure scripts align with disaster recovery requirements",
+            "Build in comprehensive audit logging and compliance reporting",
+            "Create automated testing for generated automation"
+          ]
+        }
+      },
+      "sdlc_stage_mapping": {
+        "requirements": {
+          "relevance": "Low",
+          "use_cases": ["Generate requirement validation automation"],
+          "time_savings": "Low"
+        },
+        "design": {
+          "relevance": "Medium",
+          "use_cases": ["Infrastructure provisioning scripts", "Database schema automation"],
+          "time_savings": "Medium"
+        },
+        "implementation": {
+          "relevance": "High",
+          "use_cases": ["Build pipeline automation", "Code quality gate scripts", "SDS component integration"],
+          "time_savings": "High - eliminates repetitive build tasks"
+        },
+        "testing": {
+          "relevance": "Very High",
+          "use_cases": ["Automated security testing", "Performance testing automation", "Compliance testing scripts"],
+          "time_savings": "Very High - critical for continuous testing in regulated environments"
+        },
+        "deployment": {
+          "relevance": "Very High",
+          "use_cases": ["TFE deployment automation", "Blue-green deployment scripts", "Rollback automation"],
+          "time_savings": "Very High - essential for reliable enterprise deployments"
+        },
+        "maintenance": {
+          "relevance": "High",
+          "use_cases": ["Monitoring setup automation", "Backup verification scripts", "Compliance reporting automation"],
+          "time_savings": "High - reduces operational overhead"
+        }
+      },
+      "enterprise_examples": [
+        {
+          "scenario": "TFE module deployment with compliance",
+          "prompt": "Generate a Python script that deploys our customer data microservice to production using TFE. Include: security scanning with Veracode, SDS component validation, database migration with rollback, monitoring setup with Splunk integration, and compliance documentation generation.",
+          "output_type": "Python deployment script with enterprise integrations",
+          "compliance_considerations": ["Security compliance documentation", "Security scanning requirements", "Change management integration"]
+        },
+        {
+          "scenario": "Snowflake data pipeline automation",
+          "prompt": "Create a Python script for our business data pipeline that: connects to Snowflake with proper IAM roles, executes data transformations with PII masking, optimizes warehouse usage for cost control, generates data lineage reports, and includes comprehensive error handling with alerting to Splunk.",
+          "output_type": "Snowflake data pipeline with enterprise governance",
+          "compliance_considerations": ["PII data masking", "Cost governance", "Data lineage tracking"]
+        },
+        {
+          "scenario": "Firewall request automation",
+          "prompt": "Generate a script that creates firewall change requests for our microservices deployment. Include: source/destination analysis from TFE outputs, security group rule generation, business justification templates, approval workflow integration, and automated compliance checking against our network security policies.",
+          "output_type": "Firewall request automation with compliance validation",
+          "compliance_considerations": ["Network security policies", "Change approval workflows", "Security control documentation"]
+        },
+        {
+          "scenario": "Serverless architecture deployment",
+          "prompt": "Create deployment automation for our customer notification serverless architecture. Include: Lambda function deployment with proper VPC configuration, API Gateway setup with authentication, DynamoDB table creation with encryption, CloudWatch monitoring and alerting, and cost allocation tagging per our enterprise standards.",
+          "output_type": "Serverless deployment automation with enterprise compliance",
+          "compliance_considerations": ["VPC security requirements", "Data encryption standards", "Cost allocation governance"]
+        },
+        {
+          "scenario": "Accessibility testing automation",
+          "prompt": "Generate a testing script for our SDS React components that: runs automated accessibility scans with axe-core, validates WCAG 2.1 AA compliance, generates accessibility reports, integrates with our CI/CD pipeline, and creates tickets for violations. Include keyboard navigation testing and screen reader compatibility checks.",
+          "output_type": "Accessibility testing automation with SDS integration",
+          "compliance_considerations": ["WCAG 2.1 AA requirements", "SDS design system compliance", "Accessibility audit trails"]
+        }
+      ],
+      "pattern_combinations": [
+        {
+          "with": "Template Pattern",
+          "benefit": "Generate scripts following enterprise automation templates",
+          "use_case": "Standardized TFE deployment scripts across teams"
+        },
+        {
+          "with": "Fact Check List",
+          "benefit": "Validate script dependencies and security requirements",
+          "use_case": "Ensure compliance with enterprise security standards"
+        }
+      ],
+      "enterprise_considerations": {
+        "data_security": ["Include data encryption at rest and in transit", "Implement proper secret management", "Add data classification handling"],
+        "api_governance": ["Integrate API security scanning", "Include API versioning automation", "Add API documentation generation"],
+        "compliance": ["Build in SOX compliance logging", "Include PCI-DSS scanning steps", "Add regulatory reporting automation"],
+        "tfe_integration": ["Use enterprise TFE modules", "Include proper workspace management", "Add cost monitoring and governance"]
+      },
+      "risk_assessment": {
+        "low_risk_scenarios": ["Development environment automation", "Documentation generation", "Local testing scripts"],
+        "medium_risk_scenarios": ["Staging deployment automation", "Database migration scripts", "Configuration management"],
+        "high_risk_scenarios": ["Production deployment automation", "Customer data processing scripts", "Security configuration automation"],
+        "mitigation_strategies": ["Mandatory security review", "Staged deployment testing", "Rollback testing", "Compliance team approval", "Enterprise architect review"]
+      }
+    },
+    {
+      "id": 3,
+      "name": "Persona",
+      "category": "Output Customization",
+      "intent_context": "Have the LLM adopt specific roles relevant to financial services (security auditor, compliance officer, enterprise architect) to generate contextually appropriate outputs.",
+      "motivation": "Enterprise institutions require outputs from multiple expert perspectives. The Persona pattern enables AI to provide specialized viewpoints for security, compliance, and business requirements.",
+      "structure_key_ideas": [
+        "Define specific enterprise roles and responsibilities",
+        "Establish expertise areas and decision-making criteria",
+        "Include regulatory and compliance context for the persona",
+        "Specify output format and detail level appropriate to the role"
+      ],
+      "consequences": [
+        "Outputs reflect specific role limitations and biases",
+        "May miss interdisciplinary considerations",
+        "Can provide highly focused, role-appropriate guidance",
+        "Risk of generating advice that conflicts with enterprise policies"
+      ],
+      "experience_level_guidance": {
+        "junior": {
+          "opportunities": [
+            "Learn different perspectives within enterprise organizations",
+            "Understand role-specific requirements and constraints",
+            "Gain exposure to compliance and security thinking",
+            "Build understanding of enterprise decision-making processes"
+          ],
+          "pitfalls": [
+            "May not understand the limitations of simulated expertise",
+            "Could treat AI persona advice as authoritative",
+            "Risk missing real expert consultation requirements",
+            "Might not recognize when human expertise is needed"
+          ],
+          "best_practices": [
+            "Use personas for learning and initial guidance only",
+            "Always validate advice with actual subject matter experts",
+            "Understand that AI cannot replace real compliance or security expertise",
+            "Use multiple personas to get different perspectives"
+          ]
+        },
+        "mid": {
+          "opportunities": [
+            "Quickly generate role-specific documentation and analysis",
+            "Understand cross-functional requirements early in development",
+            "Create comprehensive review checklists from different perspectives",
+            "Accelerate requirements gathering from multiple stakeholders"
+          ],
+          "pitfalls": [
+            "May rely too heavily on AI-generated expert opinions",
+            "Could skip proper stakeholder consultation processes",
+            "Risk generating outputs that don't meet actual role requirements",
+            "Might not understand regulatory nuances that real experts know"
+          ],
+          "best_practices": [
+            "Use personas to prepare for stakeholder meetings",
+            "Validate AI-generated advice with real experts",
+            "Combine multiple persona perspectives for comprehensive analysis",
+            "Always include human expert review in final decisions"
+          ]
+        },
+        "senior": {
+          "opportunities": [
+            "Rapidly prototype cross-functional analysis and recommendations",
+            "Generate comprehensive risk assessments from multiple angles",
+            "Create enterprise-wide policy and procedure documentation",
+            "Develop training materials from different role perspectives"
+          ],
+          "pitfalls": [
+            "May substitute AI analysis for proper expert consultation",
+            "Could generate policies that don't reflect actual regulatory requirements",
+            "Risk creating documentation that lacks real-world expertise",
+            "Might not capture institutional knowledge and experience"
+          ],
+          "best_practices": [
+            "Use personas to enhance, not replace, expert consultation",
+            "Ensure all AI-generated policies undergo proper review cycles",
+            "Combine persona outputs with real stakeholder input",
+            "Maintain clear documentation about AI-assisted vs. expert-validated content"
+          ]
+        }
+      },
+      "sdlc_stage_mapping": {
+        "requirements": {
+          "relevance": "Very High",
+          "use_cases": ["Security requirements from CISO perspective", "Compliance requirements from risk officer viewpoint", "Business requirements from product owner angle"],
+          "time_savings": "High - accelerates requirements gathering from multiple stakeholders"
+        },
+        "design": {
+          "relevance": "High",
+          "use_cases": ["Architecture review from enterprise architect perspective", "Security design review", "UI/UX review using SDS guidelines"],
+          "time_savings": "Medium - helps identify design issues early"
+        },
+        "implementation": {
+          "relevance": "Medium",
+          "use_cases": ["Code review from security perspective", "Implementation guidance from senior developer viewpoint"],
+          "time_savings": "Low - mainly for guidance and learning"
+        },
+        "testing": {
+          "relevance": "High",
+          "use_cases": ["Security testing from penetration tester perspective", "Compliance testing from auditor viewpoint", "User acceptance testing from business user angle"],
+          "time_savings": "Medium - helps create comprehensive test plans"
+        },
+        "deployment": {
+          "relevance": "High",
+          "use_cases": ["Deployment review from operations perspective", "Security configuration from CISO viewpoint"],
+          "time_savings": "Medium - identifies operational concerns early"
+        },
+        "maintenance": {
+          "relevance": "Medium",
+          "use_cases": ["Operational procedures from SRE perspective", "Incident response from security team viewpoint"],
+          "time_savings": "Low - mainly for procedure documentation"
+        }
+      },
+      "enterprise_examples": [
+        {
+          "scenario": "Security architecture review",
+          "prompt": "Act as our Chief Information Security Officer. Review this microservices architecture for our e-commerce platform. Focus on data encryption, API security, network segmentation, and compliance with security standards and data privacy requirements. Provide specific security recommendations and identify potential vulnerabilities.",
+          "output_type": "Security architecture assessment with compliance focus",
+          "compliance_considerations": ["Security compliance review", "Data privacy requirements", "Enterprise security standards"]
+        },
+        {
+          "scenario": "UX accessibility expert review",
+          "prompt": "Take the role of our Senior UX Designer specializing in accessibility compliance. Review our customer onboarding flow built with SDS components. Evaluate WCAG 2.1 AA compliance, keyboard navigation patterns, screen reader compatibility, color contrast ratios, and focus management. Provide specific recommendations for improving accessibility while maintaining our design system consistency.",
+          "output_type": "Accessibility-focused UX review with SDS compliance",
+          "compliance_considerations": ["WCAG 2.1 AA standards", "SDS design system compliance", "Enterprise accessibility requirements"]
+        },
+        {
+          "scenario": "Database architect persona",
+          "prompt": "Act as our Senior Database Architect specializing in Snowflake and MongoDB. Analyze our customer analytics data model including query performance, data partitioning strategies, cost optimization, and PII data handling. Focus on aggregation pipeline efficiency for MongoDB collections and warehouse sizing for Snowflake queries. Include recommendations for indexing and data retention policies.",
+          "output_type": "Database architecture assessment with performance and compliance focus",
+          "compliance_considerations": ["PII data handling", "Cost optimization requirements", "Data retention policies"]
+        },
+        {
+          "scenario": "Serverless architect review",
+          "prompt": "Take the role of our Cloud Architect specializing in serverless patterns. Review our proposed event-driven architecture for order processing using Lambda, API Gateway, and DynamoDB. Evaluate cold start optimization, concurrent execution limits, error handling patterns, cost implications, and integration with our existing VPC infrastructure. Include monitoring and observability recommendations.",
+          "output_type": "Serverless architecture assessment with enterprise integration",
+          "compliance_considerations": ["VPC integration requirements", "Cost governance", "Enterprise monitoring standards"]
+        },
+        {
+          "scenario": "Security engineer for bug analysis",
+          "prompt": "Act as our Application Security Engineer. Analyze this code for potential security vulnerabilities including SQL injection, XSS, CSRF, authentication bypass, and data exposure risks. Focus on OWASP Top 10 vulnerabilities and provide specific remediation steps. Include static analysis tool recommendations and secure coding practices for our development teams.",
+          "output_type": "Security-focused bug analysis with remediation guidance",
+          "compliance_considerations": ["OWASP security standards", "Secure coding practices", "Vulnerability remediation processes"]
+        }
+      ],
+      "pattern_combinations": [
+        {
+          "with": "Alternative Approaches",
+          "benefit": "Get different solutions from various expert perspectives",
+          "use_case": "Security solutions from both CISO and developer viewpoints"
+        },
+        {
+          "with": "Fact Check List",
+          "benefit": "Validate persona-generated advice against enterprise standards",
+          "use_case": "Ensure compliance recommendations align with actual regulations"
+        }
+      ],
+      "enterprise_considerations": {
+        "data_security": ["CISO persona for security reviews", "Privacy officer persona for data handling", "Security architect persona for technical controls"],
+        "api_governance": ["API architect persona for design standards", "Integration specialist persona for enterprise patterns"],
+        "compliance": ["Compliance officer persona for regulatory requirements", "Internal auditor persona for control assessments", "Risk officer persona for risk analysis"],
+        "tfe_integration": ["Cloud architect persona for TFE best practices", "DevOps engineer persona for deployment patterns"]
+      },
+      "risk_assessment": {
+        "low_risk_scenarios": ["Learning and education", "Initial brainstorming", "Documentation drafting"],
+        "medium_risk_scenarios": ["Requirements analysis", "Design review preparation", "Testing strategy development"],
+        "high_risk_scenarios": ["Security policy development", "Compliance assessment", "Risk analysis and recommendations"],
+        "mitigation_strategies": ["Always validate with real experts", "Use multiple persona perspectives", "Include human review in decision processes", "Document AI-assisted vs. expert-validated content"]
+      }
+    },
+    {
+      "id": 4,
+      "name": "Visualization Generator",
+      "category": "Output Customization",
+      "intent_context": "Generate code or specifications for creating visual representations of financial data, system architectures, and compliance workflows that integrate with enterprise visualization tools.",
+      "motivation": "Enterprise systems require clear visual communication of complex data relationships, business models, and system architectures for stakeholder understanding and regulatory reporting.",
+      "structure_key_ideas": [
+        "Generate visualization specifications compatible with enterprise tools (Tableau, D3.js, etc.)",
+        "Include appropriate data security and privacy considerations",
+        "Ensure visualizations meet accessibility and compliance standards",
+        "Provide multiple format options for different stakeholder needs"
+      ],
+      "consequences": [
+        "Generated visualizations must comply with data classification policies",
+        "Requires integration with approved enterprise visualization platforms",
+        "Can significantly improve stakeholder communication",
+        "May expose sensitive data if not properly configured"
+      ],
+      "experience_level_guidance": {
+        "junior": {
+          "opportunities": [
+            "Learn data visualization best practices for enterprise systems",
+            "Understand how to present complex business data clearly",
+            "Build skills with enterprise-approved visualization tools",
+            "Practice creating compliant and accessible visualizations"
+          ],
+          "pitfalls": [
+            "May create visualizations that expose sensitive data",
+            "Could generate charts that don't meet accessibility standards",
+            "Risk creating misleading financial data representations",
+            "Might not understand data classification requirements"
+          ],
+          "best_practices": [
+            "Always validate data classification before visualization",
+            "Use approved enterprise color palettes and accessibility standards",
+            "Include proper data masking for sensitive information",
+            "Test visualizations with screen readers and accessibility tools"
+          ]
+        },
+        "mid": {
+          "opportunities": [
+            "Create comprehensive dashboards for financial monitoring",
+            "Generate architecture diagrams for system documentation",
+            "Build interactive visualizations for business stakeholders",
+            "Develop compliance reporting visualizations"
+          ],
+          "pitfalls": [
+            "May create visualizations that don't integrate with enterprise systems",
+            "Could generate charts that misrepresent financial data",
+            "Risk creating performance issues with large datasets",
+            "Might not consider real-time data requirements"
+          ],
+          "best_practices": [
+            "Ensure visualizations integrate with enterprise data governance",
+            "Optimize for performance with financial datasets",
+            "Include proper data lineage and audit trail information",
+            "Test with realistic data volumes and update frequencies"
+          ]
+        },
+        "senior": {
+          "opportunities": [
+            "Design enterprise-wide visualization standards and patterns",
+            "Create complex risk modeling and scenario visualizations",
+            "Build executive-level dashboards and reporting systems",
+            "Develop regulatory reporting and compliance visualizations"
+          ],
+          "pitfalls": [
+            "May create overly complex visualization systems",
+            "Could generate visualizations that don't scale across the enterprise",
+            "Risk creating visualizations that don't meet regulatory requirements",
+            "Might not consider long-term maintenance and evolution"
+          ],
+          "best_practices": [
+            "Design visualizations with regulatory compliance in mind",
+            "Ensure scalability across multiple business units",
+            "Create comprehensive documentation and training materials",
+            "Establish governance processes for visualization standards"
+          ]
+        }
+      },
+      "sdlc_stage_mapping": {
+        "requirements": {
+          "relevance": "Medium",
+          "use_cases": ["Requirements visualization", "User journey mapping", "Business process diagrams"],
+          "time_savings": "Medium - improves requirements communication"
+        },
+        "design": {
+          "relevance": "Very High",
+          "use_cases": ["System architecture diagrams", "Database schema visualization", "API interaction diagrams", "SDS component relationships"],
+          "time_savings": "High - essential for architecture communication"
+        },
+        "implementation": {
+          "relevance": "Low",
+          "use_cases": ["Code structure visualization", "Dependency graphs"],
+          "time_savings": "Low - mainly for documentation"
+        },
+        "testing": {
+          "relevance": "Medium",
+          "use_cases": ["Test coverage visualization", "Performance monitoring charts", "Security testing results"],
+          "time_savings": "Low - mainly for reporting and analysis"
+        },
+        "deployment": {
+          "relevance": "High",
+          "use_cases": ["Deployment pipeline visualization", "Infrastructure monitoring dashboards", "Performance metrics"],
+          "time_savings": "Medium - improves operational visibility"
+        },
+        "maintenance": {
+          "relevance": "High",
+          "use_cases": ["System health dashboards", "Incident response workflows", "Compliance reporting charts"],
+          "time_savings": "High - critical for ongoing operations"
+        }
+      },
+      "enterprise_examples": [
+        {
+          "scenario": "Business analytics dashboard",
+          "prompt": "Generate a D3.js specification for an interactive analytics dashboard showing customer engagement across our product portfolio. Include drill-down capabilities, real-time data updates, proper data masking for PII, and compliance with our enterprise color scheme and accessibility standards.",
+          "output_type": "D3.js visualization code with enterprise compliance",
+          "compliance_considerations": ["PII data masking", "Accessibility standards", "Enterprise design guidelines"]
+        },
+        {
+          "scenario": "System architecture documentation",
+          "prompt": "Create a Mermaid diagram showing the architecture of our customer onboarding microservices, including data flows, security boundaries, integration points with legacy systems, and compliance checkpoints. Use our enterprise architecture notation standards.",
+          "output_type": "Mermaid architecture diagram",
+          "compliance_considerations": ["Security boundary documentation", "Data flow compliance", "Enterprise architecture standards"]
+        },
+        {
+          "scenario": "TFE infrastructure visualization",
+          "prompt": "Generate a Terraform visualization showing our cloud infrastructure deployment across multiple environments, including network segmentation, security groups, data classification zones, and cost allocation tags.",
+          "output_type": "Infrastructure diagram with compliance annotations",
+          "compliance_considerations": ["Network security visualization", "Data classification representation", "Cost governance display"]
+        }
+      ],
+      "pattern_combinations": [
+        {
+          "with": "Template Pattern",
+          "benefit": "Generate visualizations following enterprise standards",
+          "use_case": "Standardized dashboard templates across business units"
+        },
+        {
+          "with": "Persona Pattern",
+          "benefit": "Create role-specific visualizations",
+          "use_case": "Executive dashboards vs. technical monitoring charts"
+        }
+      ],
+      "enterprise_considerations": {
+        "data_security": ["Implement proper data masking and classification", "Ensure visualization tools meet security standards", "Include audit trails for data access"],
+        "api_governance": ["Visualize API dependencies and data flows", "Show API security and governance controls", "Display API performance and usage metrics"],
+        "compliance": ["Create regulatory reporting visualizations", "Show compliance status and audit trails", "Visualize risk assessments and controls"],
+        "tfe_integration": ["Visualize infrastructure deployments and dependencies", "Show cost allocation and resource utilization", "Display security and compliance posture"]
+      },
+      "risk_assessment": {
+        "low_risk_scenarios": ["System architecture diagrams", "Process flow charts", "Training visualizations"],
+        "medium_risk_scenarios": ["Performance dashboards", "Infrastructure monitoring", "Non-sensitive business metrics"],
+        "high_risk_scenarios": ["Financial data visualizations", "Customer data analysis", "Risk and compliance reporting"],
+        "mitigation_strategies": ["Data classification validation", "Access control implementation", "Audit logging", "Regular security review", "Stakeholder approval for sensitive data visualizations"]
+      }
+    },
+    {
+      "id": 5,
+      "name": "Recipe",
+      "category": "Output Customization",
+      "intent_context": "Generate step-by-step procedures for complex enterprise processes like compliance workflows, security implementations, and cloud deployments using known enterprise tools and standards.",
+      "motivation": "Enterprise institutions require repeatable, documented procedures for compliance and risk management. The Recipe pattern ensures consistent execution of complex enterprise processes.",
+      "structure_key_ideas": [
+        "Define clear end goal aligned with enterprise objectives",
+        "Specify known constraints and enterprise tools to be used",
+        "Generate complete sequence with security and compliance steps",
+        "Identify missing steps and validate against enterprise standards",
+        "Include rollback procedures and error handling"
+      ],
+      "consequences": [
+        "Generated procedures must undergo compliance review",
+        "Requires validation against enterprise security standards",
+        "Can significantly improve process consistency and compliance",
+        "May generate procedures that don't account for all enterprise constraints"
+      ],
+      "experience_level_guidance": {
+        "junior": {
+          "opportunities": [
+            "Learn enterprise processes and standard procedures",
+            "Understand compliance requirements through structured steps",
+            "Build confidence with complex deployment and security procedures",
+            "Practice following enterprise standards and best practices"
+          ],
+          "pitfalls": [
+            "May follow generated procedures without understanding implications",
+            "Could skip validation steps or compliance requirements",
+            "Risk executing procedures that aren't properly tested",
+            "Might not recognize when procedures need expert review"
+          ],
+          "best_practices": [
+            "Always have procedures reviewed by senior developers",
+            "Test procedures in development environments first",
+            "Understand the purpose and risks of each step",
+            "Validate procedures against enterprise documentation"
+          ]
+        },
+        "mid": {
+          "opportunities": [
+            "Accelerate creation of deployment and operational procedures",
+            "Standardize processes across teams and projects",
+            "Generate

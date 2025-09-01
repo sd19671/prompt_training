@@ -1,0 +1,225 @@
+{
+  "git_workflow_linear_history_prompts": {
+    "metadata": {
+      "title": "Git Workflow and Linear History Management Prompts",
+      "description": "Claude Code compatible prompts for git workflow automation and linear history management",
+      "target_tool": "Claude Code",
+      "focus": "Executable scripts for git workflow enforcement and linear history fixes",
+      "tech_stack": ["JavaScript", "Node.js", "PowerShell", "simple-git", "GitHub CLI"]
+    },
+    "categories": {
+      "linear_history_management": {
+        "description": "Prompts for detecting, analyzing, and fixing linear history issues",
+        "prompts": [
+          {
+            "name": "Linear History Analyzer",
+            "prompt": "Generate a Node.js script using simple-git that analyzes repository history for non-linear issues. Check for: merge commits in main branch, parallel development branches, complex merge patterns, and identify specific commits that break linearity. Create detailed reports showing problematic commits, their authors, dates, and provide remediation suggestions. Include visualization of commit graph using ASCII art or mermaid diagram generation.",
+            "expected_output": "Node.js script with comprehensive linear history analysis and visual reporting",
+            "use_case": "Identifying and understanding linear history violations",
+            "enterprise_considerations": ["Historical analysis", "Author attribution", "Remediation planning"]
+          },
+          {
+            "name": "Linear History Fixer",
+            "prompt": "Create a Node.js script using simple-git that automatically fixes linear history issues through interactive rebase operations. Include: detection of merge commits, automated squash recommendations, conflict resolution guidance, branch point identification, and safe rebase execution with backup creation. Provide dry-run mode and step-by-step validation before applying changes.",
+            "expected_output": "Node.js script with interactive rebase automation and safety measures",
+            "use_case": "Automated linear history remediation with safety controls",
+            "enterprise_considerations": ["Safe rebase operations", "Backup creation", "Conflict resolution"]
+          },
+          {
+            "name": "Pre-merge Linear History Validator",
+            "prompt": "Generate a GitHub Actions workflow using Node.js that validates pull requests for linear history compliance before allowing merges. Check: no merge commits in branch, proper rebase from main, commit message continuity, and author consistency. Prevent merges that would break linear history and provide clear instructions for developers to fix issues including rebase commands and conflict resolution steps.",
+            "expected_output": "GitHub Actions workflow with pre-merge linear history validation",
+            "use_case": "Preventing linear history issues at merge time",
+            "enterprise_considerations": ["PR validation", "Developer guidance", "Automated prevention"]
+          },
+          {
+            "name": "Linear History Recovery Tool",
+            "prompt": "Create a PowerShell script using GitHub CLI that recovers from severely broken linear history by creating a new clean branch. Include: commit extraction and reordering, author and timestamp preservation, automated testing validation, and safe branch replacement. Provide rollback procedures and team notification workflows for major history restructuring operations.",
+            "expected_output": "PowerShell recovery script with branch reconstruction and rollback capabilities",
+            "use_case": "Major linear history recovery and branch reconstruction",
+            "enterprise_considerations": ["History preservation", "Team coordination", "Rollback procedures"]
+          }
+        ]
+      },
+      "trunk_based_development_workflows": {
+        "description": "Prompts for implementing and enforcing trunk-based development using main branch",
+        "prompts": [
+          {
+            "name": "Trunk-Based Development Enforcer",
+            "prompt": "Generate a Node.js script using Octokit that enforces trunk-based development policies: main branch protection, short-lived feature branches (max 2 days), frequent integration requirements, and automated branch cleanup. Include branch age monitoring, developer notifications for overdue branches, and integration frequency tracking. Create dashboard showing team compliance with trunk-based practices.",
+            "expected_output": "Node.js trunk-based development enforcement system with monitoring dashboard",
+            "use_case": "Automated enforcement of trunk-based development practices",
+            "enterprise_considerations": ["Branch lifecycle management", "Team compliance tracking", "Integration monitoring"]
+          },
+          {
+            "name": "Trunk-Based Workflow Guide Generator",
+            "prompt": "Create a Node.js script that generates interactive workflow guides for trunk-based development. Include: branching strategy documentation, commit frequency guidelines, integration best practices, testing requirements, and automated command generation for common operations. Provide team-specific customization based on repository type and generate markdown documentation with executable examples.",
+            "expected_output": "Interactive trunk-based development guide generator with executable examples",
+            "use_case": "Developer education and workflow standardization for trunk-based development",
+            "enterprise_considerations": ["Team education", "Workflow standardization", "Best practice enforcement"]
+          },
+          {
+            "name": "Trunk-Based Integration Helper",
+            "prompt": "Generate a Node.js CLI tool using commander and simple-git that assists developers with trunk-based development workflows. Include: automated branch creation from main, frequent rebase helpers, integration conflict detection, and pre-integration testing. Provide smart commit suggestions, branch naming conventions enforcement, and automated pull request creation with proper templates and reviewers.",
+            "expected_output": "Node.js CLI tool for trunk-based development workflow assistance",
+            "use_case": "Developer productivity tools for trunk-based workflows",
+            "enterprise_considerations": ["Developer experience", "Workflow automation", "Quality gates"]
+          },
+          {
+            "name": "Trunk-Based Metrics Collector",
+            "prompt": "Create a Node.js application using Express and Chart.js that collects and displays trunk-based development metrics: integration frequency, branch lifespan, merge queue times, build success rates, and hotfix frequency. Pull data from GitHub API using Octokit, generate trend analysis, and create alerts for anti-patterns like long-lived branches or integration delays.",
+            "expected_output": "Node.js metrics application with trunk-based development KPIs and alerting",
+            "use_case": "Monitoring and improving trunk-based development practices",
+            "enterprise_considerations": ["Performance metrics", "Anti-pattern detection", "Continuous improvement"]
+          }
+        ]
+      },
+      "gitflow_workflow_management": {
+        "description": "Prompts for implementing and managing gitflow workflows with develop branch",
+        "prompts": [
+          {
+            "name": "GitFlow Workflow Enforcer",
+            "prompt": "Generate a Node.js script using Octokit that enforces GitFlow workflow policies: develop branch as integration point, feature branches from develop, release branch management, hotfix procedures, and proper merge strategies. Include branch naming convention validation, merge direction enforcement (feature→develop, release→main+develop), and automated tag creation for releases.",
+            "expected_output": "Node.js GitFlow workflow enforcement system with branch policy validation",
+            "use_case": "Automated GitFlow workflow compliance and enforcement",
+            "enterprise_considerations": ["Branch governance", "Release management", "Workflow compliance"]
+          },
+          {
+            "name": "GitFlow Branch Manager",
+            "prompt": "Create a PowerShell script using GitHub CLI that manages GitFlow branches automatically. Include: feature branch creation from develop, release branch preparation with version bumping, hotfix branch creation from main, and automated merge completion with proper sequencing. Provide conflict resolution guidance and team notification for branch lifecycle events.",
+            "expected_output": "PowerShell GitFlow branch management automation with lifecycle handling",
+            "use_case": "Automated GitFlow branch lifecycle management",
+            "enterprise_considerations": ["Branch sequencing", "Version management", "Team coordination"]
+          },
+          {
+            "name": "GitFlow Release Automation",
+            "prompt": "Generate a Node.js script that automates GitFlow release processes. Include: release branch creation from develop, version number management, changelog generation from commit history, automated testing validation, merge to main and develop, tag creation, and deployment trigger. Provide rollback procedures and release quality gates with stakeholder approval workflows.",
+            "expected_output": "Node.js GitFlow release automation with quality gates and approvals",
+            "use_case": "Streamlined GitFlow release process with quality controls",
+            "enterprise_considerations": ["Release quality", "Stakeholder approval", "Rollback procedures"]
+          },
+          {
+            "name": "GitFlow vs Trunk-Based Comparison Tool",
+            "prompt": "Create a Node.js analysis tool that compares GitFlow and trunk-based development approaches for a given repository. Analyze: team size impact, release frequency requirements, integration complexity, testing requirements, and deployment patterns. Generate recommendations based on repository metrics, team structure, and development velocity. Include migration guidance between workflows with risk assessment.",
+            "expected_output": "Node.js workflow analysis and recommendation tool with migration guidance",
+            "use_case": "Workflow selection and migration planning for development teams",
+            "enterprise_considerations": ["Workflow optimization", "Team structure analysis", "Migration planning"]
+          }
+        ]
+      },
+      "developer_education_and_training": {
+        "description": "Prompts for creating educational content and training materials for git workflows",
+        "prompts": [
+          {
+            "name": "Interactive Git Workflow Tutorial Generator",
+            "prompt": "Generate a Node.js web application using Express that creates interactive git workflow tutorials. Include: step-by-step branching exercises, simulated repository environments, hands-on practice with real git commands, progress tracking, and skill assessment. Support both trunk-based and GitFlow workflows with customizable scenarios based on team needs and experience levels.",
+            "expected_output": "Node.js interactive tutorial web application with progress tracking",
+            "use_case": "Developer education and skill building for git workflows",
+            "enterprise_considerations": ["Skill assessment", "Progress tracking", "Customizable scenarios"]
+          },
+          {
+            "name": "Git Workflow Best Practices Guide Generator",
+            "prompt": "Create a Node.js script that generates comprehensive git workflow documentation tailored to team needs. Include: workflow comparison matrices, decision trees for workflow selection, common pitfalls and solutions, command reference cards, and team-specific guidelines. Generate markdown documentation with embedded diagrams, executable examples, and integration with team communication tools like Slack.",
+            "expected_output": "Node.js documentation generator with team-specific git workflow guides",
+            "use_case": "Standardized documentation and reference materials for git workflows",
+            "enterprise_considerations": ["Documentation standards", "Team customization", "Communication integration"]
+          },
+          {
+            "name": "Git Command Assistant",
+            "prompt": "Generate a Node.js CLI tool using commander that provides context-aware git command assistance. Include: workflow-specific command suggestions, safety checks before destructive operations, command history analysis, and personalized recommendations based on user patterns. Provide explanations for complex operations, undo guidance, and integration with popular IDEs through extensions.",
+            "expected_output": "Node.js CLI assistant with context-aware git command help",
+            "use_case": "Developer productivity and safety tool for git operations",
+            "enterprise_considerations": ["Developer safety", "Productivity enhancement", "IDE integration"]
+          },
+          {
+            "name": "Git Workflow Simulation Environment",
+            "prompt": "Create a Node.js application that simulates different git workflow scenarios for training purposes. Include: virtual repository environments, team member simulation, conflict scenarios, release cycle simulation, and performance impact analysis. Provide scenario libraries for common situations, assessment metrics, and integration with learning management systems for enterprise training programs.",
+            "expected_output": "Node.js git workflow simulation environment with training scenarios",
+            "use_case": "Safe training environment for practicing complex git workflows",
+            "enterprise_considerations": ["Training standardization", "Risk-free learning", "Assessment integration"]
+          }
+        ]
+      }
+    },
+    "usage_guidelines": {
+      "claude_code_integration": {
+        "description": "Guidelines for using these git workflow prompts effectively with Claude Code",
+        "recommendations": [
+          "Generate executable Node.js and PowerShell scripts with proper error handling",
+          "Include interactive modes for learning and validation scenarios",
+          "Provide both automated and manual operation modes for flexibility", 
+          "Add comprehensive logging and progress reporting for complex operations",
+          "Include safety measures like dry-run modes and backup creation",
+          "Generate team-specific documentation and reference materials"
+        ]
+      },
+      "workflow_considerations": {
+        "trunk_based_development": {
+          "key_principles": [
+            "Short-lived feature branches (1-2 days maximum)",
+            "Frequent integration to main branch",
+            "Automated testing and continuous integration",
+            "Feature flags for incomplete features",
+            "Fast feedback loops and rapid deployment"
+          ],
+          "automation_focus": [
+            "Branch age monitoring and cleanup",
+            "Integration frequency tracking", 
+            "Automated testing validation",
+            "Deployment pipeline integration",
+            "Team compliance monitoring"
+          ]
+        },
+        "gitflow_workflow": {
+          "key_branches": [
+            "main - production ready code",
+            "develop - integration branch for features",
+            "feature/* - individual feature development",
+            "release/* - release preparation branches",
+            "hotfix/* - emergency production fixes"
+          ],
+          "automation_focus": [
+            "Branch naming convention enforcement",
+            "Merge direction validation",
+            "Release process automation",
+            "Version management integration",
+            "Quality gate enforcement"
+          ]
+        }
+      },
+      "enterprise_considerations": {
+        "safety_measures": [
+          "Always create backups before history modifications",
+          "Include dry-run modes for all destructive operations",
+          "Provide rollback procedures for major changes",
+          "Add validation steps before executing git operations",
+          "Include team notification for significant changes"
+        ],
+        "team_coordination": [
+          "Integrate with team communication tools (Slack, Teams)",
+          "Provide clear escalation procedures for complex issues",
+          "Include approval workflows for major operations",
+          "Add progress tracking and status reporting",
+          "Ensure operations work across different time zones"
+        ],
+        "compliance_and_auditing": [
+          "Maintain audit trails for all automated operations",
+          "Include compliance reporting for workflow adherence",
+          "Provide metrics and analytics for process improvement",
+          "Add documentation generation for audit requirements",
+          "Include security scanning and validation"
+        ]
+      }
+    },
+    "sample_claude_code_commands": [
+      "claude-code \"Generate a Node.js script using simple-git that analyzes repository history for linear history issues and creates visual reports\"",
+      "claude-code \"Create a GitHub Actions workflow that validates pull requests for linear history compliance and provides fix instructions\"",
+      "claude-code \"Generate a Node.js CLI tool for trunk-based development that helps with branch creation, rebasing, and integration\"",
+      "claude-code \"Create a PowerShell script that manages GitFlow branches automatically including feature, release, and hotfix workflows\"",
+      "claude-code \"Generate a Node.js web application that creates interactive git workflow tutorials with hands-on exercises\"",
+      "claude-code \"Create a Node.js script that compares GitFlow vs trunk-based development and provides migration recommendations\"",
+      "claude-code \"Generate a Node.js tool that fixes linear history issues through automated rebase operations with safety measures\"",
+      "claude-code \"Create a comprehensive git workflow documentation generator that creates team-specific guides and reference materials\""
+    ]
+  }
+}
